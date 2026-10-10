@@ -12,6 +12,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let dock = Dock()
     private let reminder = MeetingReminder()
     private var notetaker: Notetaker?
+    private var streaming: StreamingDictation?
     private let recorder = Recorder()
     private let hotkey = HotkeyMonitor()
     private var transcriber: Transcriber?
@@ -59,6 +60,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let t = try Transcriber.fromBundle()
             transcriber = t
             notetaker = Notetaker(transcriber: t)
+            streaming = StreamingDictation(transcriber: t)
             notetaker?.onWarning = { MeetingPanel.shared.model.warning = $0 }
         } catch {
             state.status = "❌ \(error.localizedDescription)"
@@ -75,6 +77,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         pill.onDone = { [weak self] in self?.finish() }
         pill.onCancel = { [weak self] in self?.cancel() }
         recorder.onLevel = { [weak self] level in self?.pill.push(level: level) }
+        recorder.onSamples = { [weak self] s in self?.streaming?.feed(s) }
 
         permissionTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.checkPermissions()
@@ -143,6 +146,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func start() {
         do {
             targetApp = NSWorkspace.shared.frontmostApplication?.localizedName
+            streaming?.start()
             try recorder.start()
             state.phase = .recording
             Chime.playStart()
@@ -159,6 +163,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func cancel() {
         guard state.phase == .recording else { return }
         _ = recorder.stop()
+        streaming?.cancel()
         Chime.playCancel()
         reset("Cancelled")
     }
@@ -170,28 +175,40 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let seconds = Double(samples.count) / Recorder.sampleRate
 
         // Ignore recordings shorter than 0.3 s.
-        guard seconds > 0.3 else { return reset("Too short") }
+        guard seconds > 0.3 else { streaming?.cancel(); return reset("Too short") }
 
         state.phase = .working
         pill.showWorking()
         setIcon("ellipsis.circle", "Utter: transcribing")
         state.status = "Writing it down…"
         let app = targetApp
-        DispatchQueue.global(qos: .userInitiated).async {
-            let result = Result { try transcriber.transcribe(samples: samples) }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let text) where !text.isEmpty:
-                    Paster.insert(text) { PasteFallback.shared.show($0) }
-                    self.state.add(text: text, seconds: seconds, app: app, samples: samples)
-                    self.reset("Ready")
-                case .success:
-                    self.reset("Heard nothing")
-                case .failure(let error):
-                    NSLog("Utter: \(error.localizedDescription)")
-                    self.reset("❌ Transcription failed")
+        let started = Date()
+        // Most of the text was already written while you talked; this only does the last bit.
+        // If any piece failed, fall back to one pass over the whole recording.
+        streaming?.finish { streamed in
+            if let streamed, !streamed.isEmpty || seconds < 1 {
+                NSLog("Utter: dictation ready \(Int(Date().timeIntervalSince(started) * 1000)) ms after stop (\(Int(seconds)) s of audio)")
+                self.deliver(.success(streamed), seconds: seconds, app: app, samples: samples)
+            } else {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let result = Result { try transcriber.transcribe(samples: samples) }
+                    DispatchQueue.main.async { self.deliver(result, seconds: seconds, app: app, samples: samples) }
                 }
             }
+        }
+    }
+
+    private func deliver(_ result: Result<String, Error>, seconds: Double, app: String?, samples: [Float]) {
+        switch result {
+        case .success(let text) where !text.isEmpty:
+            Paster.insert(text) { PasteFallback.shared.show($0) }
+            state.add(text: text, seconds: seconds, app: app, samples: samples)
+            reset("Ready")
+        case .success:
+            reset("Heard nothing")
+        case .failure(let error):
+            NSLog("Utter: \(error.localizedDescription)")
+            reset("❌ Transcription failed")
         }
     }
 

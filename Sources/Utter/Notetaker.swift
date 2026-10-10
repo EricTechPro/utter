@@ -6,18 +6,25 @@ import CoreAudio
 /// `snapshot()` exposes the chunk still being spoken, for live draft text.
 final class Chunker {
     private let rate = Int(Recorder.sampleRate)
+    private let minSamples: Int
+    private let maxSamples: Int
     private var buf: [Float] = []
     private var consumed = 0
     private let onChunk: ([Float], Double) -> Void
     /// Bumped on every cut, so a late draft for an already-finished chunk can be ignored.
     private(set) var generation = 0
 
-    init(onChunk: @escaping (_ samples: [Float], _ offset: Double) -> Void) { self.onChunk = onChunk }
+    init(minSeconds: Double = 3, maxSeconds: Double = 10,
+         onChunk: @escaping (_ samples: [Float], _ offset: Double) -> Void) {
+        minSamples = Int(minSeconds * Recorder.sampleRate)
+        maxSamples = Int(maxSeconds * Recorder.sampleRate)
+        self.onChunk = onChunk
+    }
 
     func append(_ s: [Float]) {
         buf.append(contentsOf: s)
-        if buf.count >= 10 * rate { flush(); return }
-        if buf.count >= 3 * rate, Resampler.rms(buf.suffix(rate / 2)) < 0.008 { flush() }
+        if buf.count >= maxSamples { flush(); return }
+        if buf.count >= minSamples, Resampler.rms(buf.suffix(rate / 2)) < 0.008 { flush() }
     }
 
     func flush() {

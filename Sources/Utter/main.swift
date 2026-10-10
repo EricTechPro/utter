@@ -35,6 +35,33 @@ if let i = CommandLine.arguments.firstIndex(of: "--test-notes"), i + 1 < Command
     exit(0)
 }
 
+// `Utter --test-dictation in.wav` plays a 16 kHz WAV in real time through streaming dictation
+// and prints how long the text took after the audio ended.
+if let i = CommandLine.arguments.firstIndex(of: "--test-dictation"), i + 1 < CommandLine.arguments.count {
+    let data = try! Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[i + 1]))
+    let pcm = data.dropFirst(44).withUnsafeBytes { Array($0.bindMemory(to: Int16.self)) }
+    let samples = pcm.map { Float($0) / Float(Int16.max) }
+    let t = try! Transcriber.fromBundle()
+    Thread.sleep(forTimeInterval: 3)   // let the warm-up finish
+    let s = StreamingDictation(transcriber: t)
+    s.start()
+    for start in stride(from: 0, to: samples.count, by: 640) {
+        s.feed(Array(samples[start..<min(start + 640, samples.count)]))
+        Thread.sleep(forTimeInterval: 0.04)
+    }
+    let stopped = Date()
+    s.finish { text in
+        print(String(format: "streamed: %.0f ms after stop", Date().timeIntervalSince(stopped) * 1000))
+        print(text ?? "<failed>")
+        let one = Date()
+        let full = (try? t.transcribe(samples: samples)) ?? ""
+        print(String(format: "one pass at the end would take: %.0f ms", Date().timeIntervalSince(one) * 1000))
+        print(full)
+        exit(0)
+    }
+    RunLoop.main.run()
+}
+
 let delegate = AppDelegate()
 app.delegate = delegate
 app.setActivationPolicy(.regular)
