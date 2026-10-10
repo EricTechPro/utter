@@ -21,10 +21,25 @@ object History {
     }
 
     fun add(ctx: Context, text: String, app: String) {
-        val list = listOf(Entry(System.currentTimeMillis(), text, app)) + all(ctx).take(199)
+        save(ctx, listOf(Entry(System.currentTimeMillis(), text, app)) + all(ctx).take(199))
+    }
+
+    fun delete(ctx: Context, time: Long) = save(ctx, all(ctx).filter { it.time != time })
+
+    private fun save(ctx: Context, list: List<Entry>) {
         val arr = JSONArray()
         list.forEach { arr.put(JSONObject().put("time", it.time).put("text", it.text).put("app", it.app)) }
         ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putString(KEY, arr.toString()).apply()
+    }
+
+    fun words(text: String) = text.split(Regex("\\s+")).count { it.isNotBlank() }
+
+    fun todayWords(ctx: Context): Int {
+        val start = java.util.Calendar.getInstance().apply {
+            set(java.util.Calendar.HOUR_OF_DAY, 0); set(java.util.Calendar.MINUTE, 0)
+            set(java.util.Calendar.SECOND, 0); set(java.util.Calendar.MILLISECOND, 0)
+        }.timeInMillis
+        return all(ctx).filter { it.time >= start }.sumOf { words(it.text) }
     }
 
     fun totalWords(ctx: Context): Int = all(ctx).sumOf { e -> e.text.split(Regex("\\s+")).count { it.isNotBlank() } }

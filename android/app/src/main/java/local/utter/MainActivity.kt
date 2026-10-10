@@ -87,12 +87,26 @@ class MainActivity : Activity() {
             background = card()
         })
 
-        val total = History.totalWords(this)
-        col.addView(text("History  ·  $total words", 18f, bold = true), margins(top = 26, bottom = 8))
-        list = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        // History, like the Mac app: word counts, then past results grouped by day.
+        col.addView(text("History", 22f, bold = true), margins(top = 28, bottom = 10))
+        val stats = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
         val items = History.all(this)
-        if (items.isEmpty()) list.addView(text("No dictations yet.", 15f, color = grey))
-        items.take(100).forEach { list.addView(row(it), margins(bottom = 8)) }
+        stats.addView(stat(History.totalWords(this), "total words"), LinearLayout.LayoutParams(0, -2, 1f).apply { marginEnd = dp(8) })
+        stats.addView(stat(History.todayWords(this), "today"), LinearLayout.LayoutParams(0, -2, 1f).apply { marginEnd = dp(8) })
+        stats.addView(stat(items.size, "dictations"), LinearLayout.LayoutParams(0, -2, 1f))
+        col.addView(stats, margins(bottom = 14))
+
+        list = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        if (items.isEmpty()) list.addView(text("No dictations yet. Tap a text box, then the blue button.", 15f, color = grey))
+        var lastDay = ""
+        items.take(200).forEach { e ->
+            val day = dayLabel(e.time)
+            if (day != lastDay) {
+                list.addView(text(day.uppercase(), 13f, color = grey, bold = true), margins(top = 10, bottom = 6))
+                lastDay = day
+            }
+            list.addView(row(e), margins(bottom = 8))
+        }
         col.addView(list)
 
         setContentView(ScrollView(this).apply {
@@ -145,18 +159,52 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun row(e: Entry): View = LinearLayout(this).apply {
+    private fun stat(value: Int, label: String): View = LinearLayout(this).apply {
         orientation = LinearLayout.VERTICAL
         setPadding(dp(14), dp(12), dp(14), dp(12))
         background = card()
-        val time = DateFormat.format("MMM d, h:mm a", e.time).toString()
+        addView(text("%,d".format(value), 24f, bold = true).apply { typeface = Typeface.SERIF })
+        addView(text(label, 13f, color = grey))
+    }
+
+    private fun dayLabel(t: Long): String {
+        val today = DateFormat.format("yyyyMMdd", System.currentTimeMillis()).toString()
+        val yesterday = DateFormat.format("yyyyMMdd", System.currentTimeMillis() - 86_400_000).toString()
+        return when (DateFormat.format("yyyyMMdd", t).toString()) {
+            today -> "Today"
+            yesterday -> "Yesterday"
+            else -> DateFormat.format("EEEE, MMM d", t).toString()
+        }
+    }
+
+    private fun row(e: Entry): View = LinearLayout(this).apply {
+        orientation = LinearLayout.VERTICAL
+        setPadding(dp(14), dp(12), dp(14), dp(10))
+        background = card()
+        val time = DateFormat.format("h:mm a", e.time).toString()
         addView(text(if (e.app.isNotEmpty()) "$time · ${e.app}" else time, 13f, color = grey))
-        addView(text(e.text, 16f), LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(4) })
-        setOnClickListener {
+        addView(text(e.text, 16f).apply { setTextIsSelectable(true) },
+            LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(4) })
+        val actions = LinearLayout(this@MainActivity).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.END
+        }
+        actions.addView(smallButton("Copy") {
             val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             cb.setPrimaryClip(ClipData.newPlainText("Utter", e.text))
             Toast.makeText(this@MainActivity, "Copied", Toast.LENGTH_SHORT).show()
-        }
+        })
+        actions.addView(smallButton("Delete") { History.delete(this@MainActivity, e.time); render() })
+        addView(actions, LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(6) })
+    }
+
+    private fun smallButton(label: String, action: () -> Unit) = TextView(this).apply {
+        text = label
+        textSize = 14f
+        setTypeface(typeface, Typeface.BOLD)
+        setTextColor(if (label == "Delete") grey else BubbleService.BLUE)
+        setPadding(dp(12), dp(6), dp(12), dp(6))
+        setOnClickListener { action() }
     }
 
     private fun card(stroke: Int = 0x14000000) = GradientDrawable().apply {

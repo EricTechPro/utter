@@ -74,6 +74,7 @@ class BubbleService : AccessibilityService() {
     override fun onDestroy() {
         running = false
         dictation?.cancel()
+        closePopup()
         hide()
         super.onDestroy()
     }
@@ -256,11 +257,7 @@ class BubbleService : AccessibilityService() {
         val node = target?.also { it.refresh() } ?: focusedEditable()
         val app = node?.packageName?.toString()?.let { appLabel(it) } ?: ""
         History.add(this, text, app)
-        if (node == null || !insert(node, text)) {
-            val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            cb.setPrimaryClip(ClipData.newPlainText("Utter", text))
-            toast("Copied. Long-press the text box and tap Paste.")
-        }
+        if (node == null || !insert(node, text)) showCopyPopup(text)
     }
 
     /** Types `text` at the cursor (replacing any selection). Falls back to paste. */
@@ -288,6 +285,65 @@ class BubbleService : AccessibilityService() {
         val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         cb.setPrimaryClip(ClipData.newPlainText("Utter", text))
         return node.performAction(AccessibilityNodeInfo.ACTION_PASTE)
+    }
+
+    // ---- Couldn't type it in: show the words with a Copy button ----------------
+
+    private var popup: View? = null
+    private val dismissPopup = Runnable { closePopup() }
+
+    private fun closePopup() {
+        popup?.let { try { wm.removeView(it) } catch (_: Exception) {} }
+        popup = null
+    }
+
+    private fun showCopyPopup(text: String) {
+        closePopup()
+        val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        cb.setPrimaryClip(ClipData.newPlainText("Utter", text))
+
+        val view = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(14), dp(16), dp(12))
+            background = GradientDrawable().apply { setColor(0xF2111111.toInt()); cornerRadius = dp(18).toFloat() }
+            elevation = dp(8).toFloat()
+            addView(android.widget.TextView(context).apply {
+                this.text = "Couldn't type it in. It's copied, so you can paste it:"
+                textSize = 13f; setTextColor(0xB3FFFFFF.toInt())
+            })
+            addView(android.widget.TextView(context).apply {
+                this.text = text
+                textSize = 16f; setTextColor(Color.WHITE); maxLines = 4
+                ellipsize = android.text.TextUtils.TruncateAt.END
+                setPadding(0, dp(6), 0, dp(8))
+            })
+            val buttons = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.END }
+            buttons.addView(android.widget.TextView(context).apply {
+                this.text = "Close"; textSize = 15f; setTextColor(0xB3FFFFFF.toInt())
+                setPadding(dp(14), dp(8), dp(14), dp(8)); setOnClickListener { closePopup() }
+            })
+            buttons.addView(android.widget.TextView(context).apply {
+                this.text = "Copy"; textSize = 15f; setTextColor(Color.WHITE)
+                setTypeface(typeface, android.graphics.Typeface.BOLD)
+                background = GradientDrawable().apply { setColor(BLUE); cornerRadius = dp(16).toFloat() }
+                setPadding(dp(18), dp(8), dp(18), dp(8))
+                setOnClickListener {
+                    cb.setPrimaryClip(ClipData.newPlainText("Utter", text))
+                    toast("Copied")
+                    closePopup()
+                }
+            })
+            addView(buttons)
+        }
+        val lp = WindowManager.LayoutParams(
+            resources.displayMetrics.widthPixels - dp(32), WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT,
+        ).apply { gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL; y = dp(96) }
+        try { wm.addView(view, lp); popup = view } catch (_: Exception) { toast("Copied. Long-press a text box and tap Paste.") }
+        main.removeCallbacks(dismissPopup)
+        main.postDelayed(dismissPopup, 10_000)
     }
 
     private fun appLabel(pkg: String): String = try {
