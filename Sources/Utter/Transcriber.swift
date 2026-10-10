@@ -52,7 +52,8 @@ struct Transcriber {
 
         let p = Process()
         p.executableURL = URL(fileURLWithPath: whisperPath)
-        p.arguments = ["-m", modelPath, "-f", wav.path, "-l", "en", "-nt", "-np", "-t", "6"]
+        // "auto": whisper picks the spoken language (English, Chinese, …) on each recording.
+        p.arguments = ["-m", modelPath, "-f", wav.path, "-l", "auto", "-nt", "-np", "-t", "6"]
         let out = Pipe(), err = Pipe()
         p.standardOutput = out
         p.standardError = err
@@ -73,8 +74,22 @@ struct Transcriber {
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .joined(separator: " ")
         let stripped = joined.replacingOccurrences(of: #"\[[^\]]*\]|\([^)]*\)"#, with: "", options: .regularExpression)
-        return stripped.replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
+        let text = stripped.replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
             .trimmingCharacters(in: .whitespaces)
+        return text.range(of: #"\p{Han}"#, options: .regularExpression) == nil ? text : chinese(text)
+    }
+
+    /// Chinese output: Simplified characters, full-width punctuation, no spaces between characters.
+    static func chinese(_ t: String) -> String {
+        var s = t.applyingTransform(StringTransform("Hant-Hans"), reverse: false) ?? t
+        let han = #"\p{Han}"#
+        for (ascii, full) in [(",", "，"), (".", "。"), ("?", "？"), ("!", "！"), (":", "："), (";", "；")] {
+            let esc = NSRegularExpression.escapedPattern(for: ascii)
+            s = s.replacingOccurrences(of: "(?<=\(han))\(esc)", with: full, options: .regularExpression)
+        }
+        // Lines joined with spaces split Chinese text; drop spaces between Chinese characters/punctuation.
+        s = s.replacingOccurrences(of: #"(?<=[\p{Han}，。？！：；])\s+(?=[\p{Han}，。？！：；])"#, with: "", options: .regularExpression)
+        return s
     }
 
     /// 16-bit PCM mono WAV.
