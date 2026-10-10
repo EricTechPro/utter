@@ -75,6 +75,14 @@ class Dictation(
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 4000L)
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, ctx.packageName)
             if (Build.VERSION.SDK_INT >= 33) putExtra(RecognizerIntent.EXTRA_ENABLE_FORMATTING, RecognizerIntent.FORMATTING_OPTIMIZE_QUALITY)
+            if (Build.VERSION.SDK_INT >= 34) {
+                // Pick English or Chinese automatically, and allow switching mid-dictation.
+                val langs = arrayListOf("en-US", "zh-CN")
+                putExtra(RecognizerIntent.EXTRA_ENABLE_LANGUAGE_DETECTION, true)
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE_DETECTION_ALLOWED_LANGUAGES, langs)
+                putExtra(RecognizerIntent.EXTRA_ENABLE_LANGUAGE_SWITCH, RecognizerIntent.LANGUAGE_SWITCH_BALANCED)
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE_SWITCH_ALLOWED_LANGUAGES, langs)
+            }
         }
         r.startListening(intent)
     }
@@ -88,8 +96,17 @@ class Dictation(
         active = false
         finishing = false
         release()
-        onDone(pieces.joinToString(" ").trim())
+        onDone(join(pieces).trim())
     }
+
+    /** Spaces between English pieces, none next to Chinese characters. */
+    private fun join(parts: List<String>): String = parts.fold("") { acc, p ->
+        if (acc.isEmpty()) p
+        else if (isCJK(acc.last()) || p.firstOrNull()?.let(::isCJK) == true) acc + p
+        else "$acc $p"
+    }
+
+    private fun isCJK(c: Char) = Character.UnicodeScript.of(c.code) == Character.UnicodeScript.HAN
 
     private val listener = object : RecognitionListener {
         override fun onReadyForSpeech(params: Bundle?) {}
