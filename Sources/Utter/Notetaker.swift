@@ -1,20 +1,23 @@
 import Foundation
 import CoreAudio
 
-/// Splits a live 16 kHz stream into speech chunks: cut at a pause after 5 s,
-/// or force a cut at 15 s. Quiet chunks are dropped (whisper invents words in silence).
+/// Splits a live 16 kHz stream into speech chunks: cut at a pause after 3 s,
+/// or force a cut at 10 s. Quiet chunks are dropped (whisper invents words in silence).
+/// `snapshot()` exposes the chunk still being spoken, for live draft text.
 final class Chunker {
     private let rate = Int(Recorder.sampleRate)
     private var buf: [Float] = []
     private var consumed = 0
     private let onChunk: ([Float], Double) -> Void
+    /// Bumped on every cut, so a late draft for an already-finished chunk can be ignored.
+    private(set) var generation = 0
 
     init(onChunk: @escaping (_ samples: [Float], _ offset: Double) -> Void) { self.onChunk = onChunk }
 
     func append(_ s: [Float]) {
         buf.append(contentsOf: s)
-        if buf.count >= 15 * rate { flush(); return }
-        if buf.count >= 5 * rate, Resampler.rms(buf.suffix(rate / 2)) < 0.008 { flush() }
+        if buf.count >= 10 * rate { flush(); return }
+        if buf.count >= 3 * rate, Resampler.rms(buf.suffix(rate / 2)) < 0.008 { flush() }
     }
 
     func flush() {
@@ -23,7 +26,14 @@ final class Chunker {
         consumed += buf.count
         let chunk = buf
         buf.removeAll(keepingCapacity: true)
+        generation += 1
         if Resampler.rms(chunk) > 0.004 { onChunk(chunk, offset) }
+    }
+
+    /// The in-progress chunk if it's at least 1 s of non-silent audio.
+    func snapshot() -> (samples: [Float], generation: Int)? {
+        guard buf.count >= rate, Resampler.rms(buf) > 0.004 else { return nil }
+        return (buf, generation)
     }
 }
 
@@ -37,6 +47,11 @@ final class Notetaker {
     private let system = SystemAudioCapture()
     private let audioQueue = DispatchQueue(label: "utter.notes.audio")
     private let whisperQueue = DispatchQueue(label: "utter.notes.whisper")
+    /// Drafts run on their own queue so they never hold up the final text.
+    private let draftQueue = DispatchQueue(label: "utter.notes.draft")
+    private var draftBusy = Set<String>()
+    private var draftTimer: DispatchSourceTimer?
+    private var panel: MeetingPanelModel { MeetingPanel.shared.model }
     private var micChunker: Chunker!
     private var systemChunker: Chunker!
     private(set) var isRunning = false
@@ -80,6 +95,7 @@ final class Notetaker {
         }
 
         system.onSamples = { [weak self] s in self?.audioQueue.async { self?.systemChunker.append(s) } }
+        startDrafts()
         Task {
             do {
                 try await system.start()
@@ -97,6 +113,9 @@ final class Notetaker {
     func stop() {
         guard isRunning else { return }
         isRunning = false
+        draftTimer?.cancel()
+        draftTimer = nil
+        DispatchQueue.main.async { self.panel.drafts = [:] }
         _ = mic.stop()
         system.stop()
         // Flush the last bits, then close the meeting once whisper has caught up.
@@ -109,17 +128,55 @@ final class Notetaker {
         }
     }
 
+    /// Every 1.2 s, transcribe what's been said so far in each track and show it as a draft.
+    private func startDrafts() {
+        let t = DispatchSource.makeTimerSource(queue: audioQueue)
+        t.schedule(deadline: .now() + 1.2, repeating: 1.2)
+        t.setEventHandler { [weak self] in
+            guard let self else { return }
+            for (speaker, chunker) in [("You", self.micChunker!), ("Others", self.systemChunker!)] {
+                guard !self.draftBusy.contains(speaker), let snap = chunker.snapshot() else { continue }
+                self.draftBusy.insert(speaker)
+                self.draftQueue.async {
+                    let text = Self.clean((try? self.transcriber.transcribe(samples: snap.samples)) ?? "")
+                    self.audioQueue.async {
+                        self.draftBusy.remove(speaker)
+                        // Drop it if that chunk has already been finished.
+                        guard chunker.generation == snap.generation, self.isRunning else { return }
+                        DispatchQueue.main.async {
+                            if text.isEmpty || Self.isHallucination(text) { return }
+                            self.panel.drafts[speaker] = text
+                        }
+                    }
+                }
+            }
+        }
+        t.resume()
+        draftTimer = t
+    }
+
     private func transcribe(_ samples: [Float], offset: Double, speaker: String) {
         log("\(speaker) chunk at \(Int(offset))s, \(String(format: "%.1f", Double(samples.count) / Recorder.sampleRate))s long, rms \(String(format: "%.3f", Resampler.rms(samples)))")
         whisperQueue.async {
             let result = Result { try self.transcriber.transcribe(samples: samples) }
             if case .failure(let e) = result { self.log("whisper failed: \(e)") }
-            guard let text = try? result.get(), !text.isEmpty, !Self.isHallucination(text) else { return }
+            // The draft for this chunk is replaced by the final text (or cleared if it was noise).
+            DispatchQueue.main.async { self.panel.drafts[speaker] = nil }
+            guard let raw = try? result.get() else { return }
+            let text = Self.clean(raw)
+            guard !text.isEmpty, !Self.isHallucination(text) else { return }
             self.log("\(speaker): \(text.prefix(80))")
             DispatchQueue.main.async {
                 self.state.addSegment(Segment(offset: offset, speaker: speaker, text: text))
             }
         }
+    }
+
+    /// Removes sound tags whisper writes for noises, like *sniff* or ♪.
+    static func clean(_ t: String) -> String {
+        t.replacingOccurrences(of: #"\*[^*]*\*|♪+"#, with: "", options: .regularExpression)
+            .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
+            .trimmingCharacters(in: .whitespaces)
     }
 
     /// Phrases whisper tends to produce from near-silence.

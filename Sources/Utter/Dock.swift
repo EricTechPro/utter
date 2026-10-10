@@ -183,10 +183,13 @@ private struct DockView: View {
             if model.expanded {
                 buttons.padding(.leading, 8).transition(.move(edge: .leading).combined(with: .opacity))
             } else {
-                // Resting state: a small, quiet gray line on the edge.
+                // Resting state: a small line on the edge. Light fill with a dark rim,
+                // so it shows up on both light and dark windows.
                 Capsule()
-                    .fill(Color.gray.opacity(0.55))
-                    .frame(width: 4, height: 34)
+                    .fill(Color(white: 0.92).opacity(0.9))
+                    .overlay(Capsule().stroke(Color.black.opacity(0.45), lineWidth: 1))
+                    .shadow(color: .black.opacity(0.35), radius: 2)
+                    .frame(width: 5, height: 34)
                     .padding(.leading, 4)
                     .transition(.opacity)
             }

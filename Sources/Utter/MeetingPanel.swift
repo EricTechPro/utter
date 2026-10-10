@@ -6,6 +6,8 @@ final class MeetingPanelModel: ObservableObject {
     @Published var savedID: UUID?
     @Published var copied = false
     @Published var warning: String?
+    /// Words still being spoken, per speaker; replaced by the final text at the next pause.
+    @Published var drafts: [String: String] = [:]
 }
 
 /// Side window with the live meeting transcript.
@@ -84,7 +86,7 @@ private struct TranscriptView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 8) {
-                        if meeting?.segments.isEmpty ?? true {
+                        if (meeting?.segments.isEmpty ?? true) && (!isLive || model.drafts.isEmpty) {
                             Text(isLive ? "Listening… the transcript shows up here every few seconds."
                                         : "Nothing was said.")
                                 .foregroundStyle(.secondary).padding(.top, 20)
@@ -102,11 +104,29 @@ private struct TranscriptView: View {
                                     .fill(row.seg.speaker == "You" ? Color.black.opacity(0.05) : Color.white))
                                 .id(row.seg.id)
                         }
+                        if isLive {
+                            ForEach(["You", "Others"].filter { model.drafts[$0] != nil }, id: \.self) { speaker in
+                                if speaker != meeting?.segments.last?.speaker {
+                                    Text(speaker).font(Theme.sans(13, .semibold))
+                                        .foregroundStyle(.secondary).padding(.top, 10)
+                                }
+                                Text(model.drafts[speaker] ?? "")
+                                    .font(Theme.sans(15))
+                                    .foregroundColor(.black.opacity(0.5))
+                                    .padding(.horizontal, 14).padding(.vertical, 10)
+                                    .background(RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.black.opacity(0.12), style: StrokeStyle(lineWidth: 1, dash: [4, 3])))
+                            }
+                            Color.clear.frame(height: 1).id("bottom")
+                        }
                     }
                     .padding(.horizontal, 22).padding(.vertical, 14)
                 }
+                .onChange(of: model.drafts) { _ in
+                    if isLive { proxy.scrollTo("bottom", anchor: .bottom) }
+                }
                 .onChange(of: meeting?.segments.count ?? 0) { _ in
-                    if isLive, let last = meeting?.segments.last {
+                    if isLive, let last = meeting?.segments.last, model.drafts.isEmpty {
                         withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
                     }
                 }
