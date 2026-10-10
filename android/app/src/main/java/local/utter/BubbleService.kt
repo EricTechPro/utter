@@ -53,7 +53,7 @@ class BubbleService : AccessibilityService() {
     private lateinit var wave: WaveView
     private var shown = false
     private var target: AccessibilityNodeInfo? = null
-    private var dictation: Dictation? = null
+    private var dictation: VoiceDictation? = null
     private val hideRunnable = Runnable { if (dictation?.isActive != true) hide() }
 
     private fun dp(v: Int) = (v * resources.displayMetrics.density).toInt()
@@ -62,12 +62,11 @@ class BubbleService : AccessibilityService() {
         running = true
         wm = getSystemService(WINDOW_SERVICE) as WindowManager
         buildViews()
-        dictation = Dictation(
+        dictation = VoiceDictation(
             this,
             onLevel = { wave.push(it) },
-            onPartial = { },
             onDone = { text -> main.post { finished(text) } },
-            onError = { msg -> main.post { toast(msg); showBubble() } },
+            onError = { msg -> main.post { wave.thinking = false; toast(msg); showBubble() } },
         )
     }
 
@@ -84,7 +83,8 @@ class BubbleService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (dictation?.isActive == true) return
         val node = focusedEditable()
-        if (node != null) {
+        // Like the keyboard: show while a text box is focused and the keyboard is up.
+        if (node != null && keyboardVisible()) {
             main.removeCallbacks(hideRunnable)
             target = node
             show()
@@ -94,11 +94,17 @@ class BubbleService : AccessibilityService() {
         }
     }
 
+    private fun keyboardVisible(): Boolean {
+        val ws = windows ?: return true
+        if (ws.isEmpty()) return true
+        return ws.any { it.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_INPUT_METHOD }
+    }
+
     private fun focusedEditable(): AccessibilityNodeInfo? {
         val candidates = listOfNotNull(rootInActiveWindow) + (windows?.mapNotNull { it.root } ?: emptyList())
         for (r in candidates) {
             val f = r.findFocus(AccessibilityNodeInfo.FOCUS_INPUT) ?: continue
-            if (f.isEditable && !f.isPassword && f.packageName != packageName + ".overlay") return f
+            if (f.isEditable && !f.isPassword && f.packageName != packageName) return f
         }
         return null
     }

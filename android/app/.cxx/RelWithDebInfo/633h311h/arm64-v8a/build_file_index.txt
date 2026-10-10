@@ -1,0 +1,11 @@
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/CMakeLists.txt
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/CMakeLists.txt
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/build-info.cmake
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/parakeet-config.cmake.in
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/whisper-config.cmake.in
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/CMakeLists.txt
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/common.cmake
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/ggml-config.cmake.in
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/src/CMakeLists.txt
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt
+/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/src/CMakeLists.txt

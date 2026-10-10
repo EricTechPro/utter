@@ -1,0 +1,912 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The target system is: Android - 1 - aarch64
+      The host system is: Darwin - 27.0.0 - arm64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang 
+      Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-Wformat;-Werror=format-security
+      Id flags: -c;--target=aarch64-none-linux-android26 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is Clang, found in:
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/3.31.5-g6cf5163/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ 
+      Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-Wformat;-Werror=format-security
+      Id flags: -c;--target=aarch64-none-linux-android26 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is Clang, found in:
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/3.31.5-g6cf5163/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_8ef65
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat   -fPIE   -v -MD -MT CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCCompilerABI.c
+        Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android26
+        Thread model: posix
+        InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         (in-process)
+         "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang" -cc1 -triple aarch64-none-linux-android26 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe -resource-dir /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -target-feature +outline-atomics -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 18.0.3 based upon LLVM 18.0.3 default target x86_64-apple-darwin27.0.0
+        ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"
+        ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include
+        End of search list.
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments   -v CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -o cmTC_8ef65   && :
+        Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android26
+        Thread model: posix
+        InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=gnu --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_8ef65 /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        end of search list found
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        implicit include dirs: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe']
+        ignore line: []
+        ignore line: [Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_8ef65]
+        ignore line: [[1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat   -fPIE   -v -MD -MT CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCCompilerABI.c]
+        ignore line: [Android (12470979  +pgo  -bolt  +lto  -mlgo  based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android26]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang" -cc1 -triple aarch64-none-linux-android26 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-LF7eAe -resource-dir /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -target-feature +outline-atomics -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 18.0.3 based upon LLVM 18.0.3 default target x86_64-apple-darwin27.0.0]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        ignore line: [End of search list.]
+        ignore line: [[2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -static-libstdc++ -Wl --build-id=sha1 -Wl --no-rosegment -Wl --no-undefined-version -Wl --fatal-warnings -Wl --no-undefined -Qunused-arguments   -v CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o -o cmTC_8ef65   && :]
+        ignore line: [Android (12470979  +pgo  -bolt  +lto  -mlgo  based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android26]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        link line: [ "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=gnu --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_8ef65 /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld] ==> ignore
+          arg [--sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot] ==> ignore
+          arg [-EL] ==> ignore
+          arg [--fix-cortex-a53-843419] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [aarch64linux] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/system/bin/linker64] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_8ef65] ==> ignore
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o] ==> obj [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+          arg [--build-id=sha1] ==> ignore
+          arg [--no-rosegment] ==> ignore
+          arg [--no-undefined-version] ==> ignore
+          arg [--fatal-warnings] ==> ignore
+          arg [--no-undefined] ==> ignore
+          arg [CMakeFiles/cmTC_8ef65.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [-lc] ==> lib [c]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o] ==> obj [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o]
+        linker tool for 'C': /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld
+        remove lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        remove lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit libs: [-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+        implicit objs: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o]
+        implicit dirs: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" "-v"
+      LLD 18.0.3 (compatible with GNU linkers)
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_15c92
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat    -fPIE   -v -MD -MT CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp
+        Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android26
+        Thread model: posix
+        InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         (in-process)
+         "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++" -cc1 -triple aarch64-none-linux-android26 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO -resource-dir /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -fdeprecated-macro -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -target-feature +outline-atomics -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 18.0.3 based upon LLVM 18.0.3 default target x86_64-apple-darwin27.0.0
+        ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"
+        ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android
+         /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include
+        End of search list.
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments   -v CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_15c92   && :
+        Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+        Target: aarch64-none-linux-android26
+        Thread model: posix
+        InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+         "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=gnu --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_15c92 /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -Bstatic -lc++ -Bdynamic -lm /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1]
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+          add: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        end of search list found
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1]
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        collapse include dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        implicit include dirs: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO']
+        ignore line: []
+        ignore line: [Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_15c92]
+        ignore line: [[1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat    -fPIE   -v -MD -MT CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Android (12470979  +pgo  -bolt  +lto  -mlgo  based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android26]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++" -cc1 -triple aarch64-none-linux-android26 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +neon -target-feature +v8a -target-feature +fix-cortex-a53-835769 -target-abi aapcs -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-WNSboO -resource-dir /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18 -dependency-file CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1 -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include -internal-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include -internal-externc-isystem /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include -Wformat -fdeprecated-macro -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -target-feature +outline-atomics -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 18.0.3 based upon LLVM 18.0.3 default target x86_64-apple-darwin27.0.0]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/include]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/aarch64-linux-android]
+        ignore line: [ /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include]
+        ignore line: [End of search list.]
+        ignore line: [[2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -static-libstdc++ -Wl --build-id=sha1 -Wl --no-rosegment -Wl --no-undefined-version -Wl --fatal-warnings -Wl --no-undefined -Qunused-arguments   -v CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_15c92   && :]
+        ignore line: [Android (12470979  +pgo  -bolt  +lto  -mlgo  based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+        ignore line: [Target: aarch64-none-linux-android26]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+        link line: [ "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -EL --fix-cortex-a53-843419 -z now -z relro -z max-page-size=4096 --hash-style=gnu --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /system/bin/linker64 -o cmTC_15c92 /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26 -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android -L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o -Bstatic -lc++ -Bdynamic -lm /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl -lc /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a -l:libunwind.a -ldl /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld] ==> ignore
+          arg [--sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot] ==> ignore
+          arg [-EL] ==> ignore
+          arg [--fix-cortex-a53-843419] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [aarch64linux] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/system/bin/linker64] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_15c92] ==> ignore
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o] ==> obj [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+          arg [-L/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+          arg [--build-id=sha1] ==> ignore
+          arg [--no-rosegment] ==> ignore
+          arg [--no-undefined-version] ==> ignore
+          arg [--fatal-warnings] ==> ignore
+          arg [--no-undefined] ==> ignore
+          arg [CMakeFiles/cmTC_15c92.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-Bstatic] ==> search static
+          arg [-lc++] ==> lib [c++]
+          arg [-Bdynamic] ==> search dynamic
+          arg [-lm] ==> lib [m]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [-lc] ==> lib [c]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a] ==> lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o] ==> obj [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o]
+        linker tool for 'CXX': /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld
+        remove lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        remove lib [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-aarch64-android.a]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android]
+        collapse library dir [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib] ==> [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit libs: [c++;m;-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+        implicit objs: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtbegin_dynamic.o;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26/crtend_android.o]
+        implicit dirs: [/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/18/lib/linux/aarch64;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/26;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android;/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld.lld" "-v"
+      LLD 18.0.3 (compatible with GNU linkers)
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1250 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineASMCompiler.cmake:135 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "whisper.cpp/ggml/CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+      Target: x86_64-apple-darwin27.0.0
+      Thread model: posix
+      InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1250 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineASMCompiler.cmake:135 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "whisper.cpp/ggml/CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the ASM compiler is AppleClang using "--version" did not match "(Apple (clang|LLVM) version)":
+      Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+      Target: x86_64-apple-darwin27.0.0
+      Thread model: posix
+      InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1237 (message)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CMakeDetermineASMCompiler.cmake:135 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "whisper.cpp/ggml/CMakeLists.txt:3 (project)"
+    message: |
+      Checking whether the ASM compiler is Clang using "--version" matched "(clang version)":
+      Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+      Target: x86_64-apple-darwin27.0.0
+      Thread model: posix
+      InstalledDir: /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "whisper.cpp/ggml/CMakeLists.txt:294 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_06dff
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DCMAKE_HAVE_LIBC_PTHREAD  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=gnu11 -fPIE -MD -MT CMakeFiles/cmTC_06dff.dir/src.c.o -MF CMakeFiles/cmTC_06dff.dir/src.c.o.d -o CMakeFiles/cmTC_06dff.dir/src.c.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz/src.c
+        FAILED: CMakeFiles/cmTC_06dff.dir/src.c.o 
+        /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DCMAKE_HAVE_LIBC_PTHREAD  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=gnu11 -fPIE -MD -MT CMakeFiles/cmTC_06dff.dir/src.c.o -MF CMakeFiles/cmTC_06dff.dir/src.c.o.d -o CMakeFiles/cmTC_06dff.dir/src.c.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz/src.c
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz/src.c:13:3: error: call to undeclared function 'pthread_cancel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+           13 |   pthread_cancel(thread);
+              |   ^
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-rmdwjz/src.c:13:3: note: did you mean 'pthread_once'?
+        /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/pthread.h:264:5: note: 'pthread_once' declared here
+          264 | int pthread_once(pthread_once_t* _Nonnull __once, void (* _Nonnull __init_routine)(void));
+              |     ^
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:136 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:169 (_threads_check_flag_pthread)"
+      - "whisper.cpp/ggml/CMakeLists.txt:294 (find_package)"
+    checks:
+      - "Check if compiler accepts -pthread"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-i45X5I"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-i45X5I"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "THREADS_HAVE_PTHREAD_ARG"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-i45X5I'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_c029f
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=gnu11 -fPIE -MD -MT CMakeFiles/cmTC_c029f.dir/CheckForPthreads.c.o -MF CMakeFiles/cmTC_c029f.dir/CheckForPthreads.c.o.d -o CMakeFiles/cmTC_c029f.dir/CheckForPthreads.c.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-i45X5I/CheckForPthreads.c
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_c029f.dir/CheckForPthreads.c.o -o cmTC_c029f  -pthread  -latomic -lm && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:110 (check_cxx_compiler_flag)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test GGML_COMPILER_SUPPORTS_FP16_FORMAT_I3E"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-QTkrJr"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-QTkrJr"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "GGML_COMPILER_SUPPORTS_FP16_FORMAT_I3E"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-QTkrJr'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_881f6
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DGGML_COMPILER_SUPPORTS_FP16_FORMAT_I3E  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security    -std=gnu++17 -fPIE   -mfp16-format=ieee -MD -MT CMakeFiles/cmTC_881f6.dir/src.cxx.o -MF CMakeFiles/cmTC_881f6.dir/src.cxx.o.d -o CMakeFiles/cmTC_881f6.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-QTkrJr/src.cxx
+        FAILED: CMakeFiles/cmTC_881f6.dir/src.cxx.o 
+        /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DGGML_COMPILER_SUPPORTS_FP16_FORMAT_I3E  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security    -std=gnu++17 -fPIE   -mfp16-format=ieee -MD -MT CMakeFiles/cmTC_881f6.dir/src.cxx.o -MF CMakeFiles/cmTC_881f6.dir/src.cxx.o.d -o CMakeFiles/cmTC_881f6.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-QTkrJr/src.cxx
+        clang++: error: unknown argument: '-mfp16-format=ieee'
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:230 (check_cxx_source_compiles)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test HAVE_DOTPROD"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-NgWJHV"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-NgWJHV"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "HAVE_DOTPROD"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-NgWJHV'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_f8c79
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_DOTPROD  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_f8c79.dir/src.cxx.o -MF CMakeFiles/cmTC_f8c79.dir/src.cxx.o.d -o CMakeFiles/cmTC_f8c79.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-NgWJHV/src.cxx
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_f8c79.dir/src.cxx.o -o cmTC_f8c79  -latomic -lm && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:230 (check_cxx_source_compiles)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test HAVE_SVE"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-EQFia4"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-EQFia4"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "HAVE_SVE"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-EQFia4'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_9acab
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_SVE  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_9acab.dir/src.cxx.o -MF CMakeFiles/cmTC_9acab.dir/src.cxx.o.d -o CMakeFiles/cmTC_9acab.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-EQFia4/src.cxx
+        FAILED: CMakeFiles/cmTC_9acab.dir/src.cxx.o 
+        /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_SVE  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_9acab.dir/src.cxx.o -MF CMakeFiles/cmTC_9acab.dir/src.cxx.o.d -o CMakeFiles/cmTC_9acab.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-EQFia4/src.cxx
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-EQFia4/src.cxx:3:24: error: "Feature SVE is not defined"
+            3 |                     #  error "Feature SVE is not defined"
+              |                        ^
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:230 (check_cxx_source_compiles)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test HAVE_MATMUL_INT8"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-lrTo3T"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-lrTo3T"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "HAVE_MATMUL_INT8"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-lrTo3T'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_b23f7
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_MATMUL_INT8  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_b23f7.dir/src.cxx.o -MF CMakeFiles/cmTC_b23f7.dir/src.cxx.o.d -o CMakeFiles/cmTC_b23f7.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-lrTo3T/src.cxx
+        FAILED: CMakeFiles/cmTC_b23f7.dir/src.cxx.o 
+        /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_MATMUL_INT8  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_b23f7.dir/src.cxx.o -MF CMakeFiles/cmTC_b23f7.dir/src.cxx.o.d -o CMakeFiles/cmTC_b23f7.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-lrTo3T/src.cxx
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-lrTo3T/src.cxx:3:24: error: "Feature MATMUL_INT8 is not defined"
+            3 |                     #  error "Feature MATMUL_INT8 is not defined"
+              |                        ^
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:230 (check_cxx_source_compiles)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test HAVE_FMA"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-JUALLv"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-JUALLv"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "HAVE_FMA"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-JUALLv'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_122a2
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_FMA  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_122a2.dir/src.cxx.o -MF CMakeFiles/cmTC_122a2.dir/src.cxx.o.d -o CMakeFiles/cmTC_122a2.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-JUALLv/src.cxx
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_122a2.dir/src.cxx.o -o cmTC_122a2  -latomic -lm && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:230 (check_cxx_source_compiles)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test HAVE_FP16_VECTOR_ARITHMETIC"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-AT2YGy"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-AT2YGy"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "HAVE_FP16_VECTOR_ARITHMETIC"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-AT2YGy'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_a1b45
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_FP16_VECTOR_ARITHMETIC  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_a1b45.dir/src.cxx.o -MF CMakeFiles/cmTC_a1b45.dir/src.cxx.o.d -o CMakeFiles/cmTC_a1b45.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-AT2YGy/src.cxx
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_a1b45.dir/src.cxx.o -o cmTC_a1b45  -latomic -lm && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckCXXSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt:230 (check_cxx_source_compiles)"
+      - "whisper.cpp/ggml/src/CMakeLists.txt:586 (ggml_add_cpu_backend_variant_impl)"
+    checks:
+      - "Performing Test HAVE_SME"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-z2mm4e"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-z2mm4e"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_CXX_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  "
+      CMAKE_CXX_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/;/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/ggml/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "HAVE_SME"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-z2mm4e'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_5394f
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_SME  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_5394f.dir/src.cxx.o -MF CMakeFiles/cmTC_5394f.dir/src.cxx.o.d -o CMakeFiles/cmTC_5394f.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-z2mm4e/src.cxx
+        FAILED: CMakeFiles/cmTC_5394f.dir/src.cxx.o 
+        /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DHAVE_SME  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -march=armv8.2-a+dotprod+fp16 -std=gnu++17 -fPIE -MD -MT CMakeFiles/cmTC_5394f.dir/src.cxx.o -MF CMakeFiles/cmTC_5394f.dir/src.cxx.o.d -o CMakeFiles/cmTC_5394f.dir/src.cxx.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-z2mm4e/src.cxx
+        /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-z2mm4e/src.cxx:3:24: error: "Feature SME is not defined"
+            3 |                     #  error "Feature SME is not defined"
+              |                        ^
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckLibraryExists.cmake:78 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "whisper.cpp/src/CMakeLists.txt:233 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-SH7Oz3"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-SH7Oz3"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-SH7Oz3'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_97bc8
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -MD -MT CMakeFiles/cmTC_97bc8.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_97bc8.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_97bc8.dir/CheckFunctionExists.c.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-SH7Oz3/CheckFunctionExists.c
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_97bc8.dir/CheckFunctionExists.c.o -o cmTC_97bc8  -lpthreads  -latomic -lm && :
+        FAILED: cmTC_97bc8 
+        : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_97bc8.dir/CheckFunctionExists.c.o -o cmTC_97bc8  -lpthreads  -latomic -lm && :
+        ld.lld: error: unable to find library -lpthreads
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/CheckLibraryExists.cmake:78 (try_compile)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "/opt/homebrew/share/android-commandlinetools/cmake/3.31.5/share/cmake-3.31/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "whisper.cpp/src/CMakeLists.txt:233 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-ryKJGq"
+      binary: "/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-ryKJGq"
+    cmakeVariables:
+      ANDROID_ABI: "arm64-v8a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-26"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang-scan-deps"
+      CMAKE_CXX_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_COMPILER_TARGET: "aarch64-none-linux-android26"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_MODULE_PATH: "/Users/erictech/Desktop/Utter/android/app/src/main/cpp/whisper.cpp/cmake/"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-ryKJGq'
+        
+        Run Build Command(s): /opt/homebrew/share/android-commandlinetools/cmake/3.31.5/bin/ninja -v cmTC_8baf0
+        [1/2] /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -MD -MT CMakeFiles/cmTC_8baf0.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_8baf0.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_8baf0.dir/CheckFunctionExists.c.o -c /Users/erictech/Desktop/Utter/android/app/.cxx/RelWithDebInfo/633h311h/arm64-v8a/CMakeFiles/CMakeScratch/TryCompile-ryKJGq/CheckFunctionExists.c
+        [2/2] : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_8baf0.dir/CheckFunctionExists.c.o -o cmTC_8baf0  -lpthread  -latomic -lm && :
+        FAILED: cmTC_8baf0 
+        : && /opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android26 --sysroot=/opt/homebrew/share/android-commandlinetools/ndk/27.2.12479018/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments CMakeFiles/cmTC_8baf0.dir/CheckFunctionExists.c.o -o cmTC_8baf0  -lpthread  -latomic -lm && :
+        ld.lld: error: unable to find library -lpthread
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...

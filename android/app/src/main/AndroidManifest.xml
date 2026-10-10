@@ -2,13 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <!-- Needed on Android 11+ to find the system speech recognizer. -->
-    <queries>
-        <intent>
-            <action android:name="android.speech.RecognitionService" />
-        </intent>
-    </queries>
+    <!-- Only used once, to download the speech model. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:label="Utter"

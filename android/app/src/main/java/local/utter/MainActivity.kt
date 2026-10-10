@@ -24,21 +24,67 @@ import android.widget.TextView
 import android.widget.Toast
 
 /**
- * Setup + history. Two steps: allow the microphone, then turn on Utter in
- * Accessibility (sideloaded apps first need "Allow restricted settings").
+ * Setup + history. Three steps: allow the microphone, turn on Utter in
+ * Accessibility (sideloaded apps first need "Allow restricted settings"), download the voice model.
  */
 class MainActivity : Activity() {
     private val cream = 0xFFF7F5F1.toInt()
     private val ink = 0xFF1A1A1A.toInt()
     private val grey = 0xFF6B6B6B.toInt()
     private lateinit var list: LinearLayout
+    private var downloading: Int? = null
+
+    private fun downloadModel() {
+        if (downloading != null) return
+        downloading = 0
+        render()
+        Thread {
+            val ok = try {
+                Whisper.download(this) { p ->
+                    val pct = (p * 100).toInt()
+                    if (pct != downloading) runOnUiThread { downloading = pct; render() }
+                }
+                true
+            } catch (e: Exception) { false }
+            runOnUiThread {
+                downloading = null
+                if (!ok) Toast.makeText(this, "Download failed. Check your internet and try again.", Toast.LENGTH_LONG).show()
+                render()
+            }
+        }.start()
+    }
 
     private fun dp(v: Int) = (v * resources.displayMetrics.density).toInt()
 
     override fun onResume() {
         super.onResume()
         render()
+        intent?.getStringExtra("selftest_url")?.let { url -> intent.removeExtra("selftest_url"); selfTest(url) }
+        intent?.getStringExtra("selftest_file")?.let { name ->
+            intent.removeExtra("selftest_file")
+            selfTest(java.io.File(getExternalFilesDir(null), name).toURI().toString())
+        }
     }
+
+    /**
+     * Developer check: `adb shell am start -n local.utter/.MainActivity --es selftest_url https://…/x.wav`
+     * (or `--es selftest_file x.wav` for a file pushed to the app's external files folder)
+     * downloads the model if needed, transcribes the 16 kHz WAV and logs the result (tag UtterSelfTest).
+     */
+    private fun selfTest(url: String) = Thread {
+        val tag = "UtterSelfTest"
+        try {
+            if (!Whisper.hasModel(this)) Whisper.download(this) { }
+            val bytes = java.net.URL(url).readBytes()
+            val pcm = java.nio.ByteBuffer.wrap(bytes, 44, bytes.size - 44).order(java.nio.ByteOrder.LITTLE_ENDIAN).asShortBuffer()
+            val samples = FloatArray(pcm.remaining()) { pcm.get(it) / 32768f }
+            val t0 = System.currentTimeMillis()
+            val text = Whisper.transcribe(this, samples)
+            android.util.Log.i(tag, "ok ${System.currentTimeMillis() - t0} ms: $text")
+        } catch (e: Throwable) {
+            android.util.Log.e(tag, "failed", e)
+        }
+    }.start()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         render()
@@ -59,7 +105,7 @@ class MainActivity : Activity() {
         }
 
         col.addView(text("Utter", 34f, bold = true))
-        col.addView(text("Tap any text box, then tap the blue button to talk.", 16f, color = grey), margins(top = 4, bottom = 20))
+        col.addView(text("Tap any text box, then tap the blue button to talk. Your voice is turned into text on this phone.", 16f, color = grey), margins(top = 4, bottom = 20))
 
         col.addView(step(1, "Microphone", "So Utter can hear you.", micOK, "Allow") {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 1)
@@ -69,6 +115,9 @@ class MainActivity : Activity() {
             a11yOK, "Open settings") {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         })
+        col.addView(step(3, "Voice model", if (downloading != null) "Downloading… ${downloading}%"
+                else "One-time download (about 60 MB). After that, speech is turned into text on your phone.",
+            Whisper.hasModel(this), if (downloading != null) "…" else "Download") { downloadModel() })
         if (!a11yOK) {
             col.addView(Button(this).apply {
                 text = "Open App info (for restricted settings)"
