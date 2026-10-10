@@ -124,6 +124,17 @@ final class AppState: ObservableObject {
         return Double(short.filter(long.contains).count) / Double(short.count)
     }
 
+    /// Reopens a finished meeting so notes can continue in it.
+    /// Returns the seconds since it first started (the offset for new segments).
+    func resumeMeeting(_ id: UUID) -> Double? {
+        guard live == nil, let i = meetings.firstIndex(where: { $0.id == id }) else { return nil }
+        var m = meetings.remove(at: i)
+        m.end = nil
+        live = m
+        save(meetings, to: "meetings.json")
+        return Date().timeIntervalSince(m.start)
+    }
+
     func endMeeting() {
         guard var m = live else { return }
         m.end = Date()

@@ -50,11 +50,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         reminder.start()
         MeetingPanel.shared.onStop = { [weak self] in self?.toggleNotes() }
+        MeetingPanel.shared.onResume = { [weak self] id in self?.toggleNotes(resume: id) }
         NotificationCenter.default.addObserver(forName: .utterToggleNotes, object: nil, queue: .main) { [weak self] _ in
             self?.toggleNotes()
         }
 
         registerLoginItem()
+
+        // `--start-notes` starts meeting notes a moment after launch (for testing the panel).
+        if CommandLine.arguments.contains("--start-notes") {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in self?.toggleNotes() }
+        }
 
         do {
             let t = try Transcriber.fromBundle()
@@ -107,7 +113,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if notetaker?.isRunning == true { state.endMeeting() }
     }
 
-    private func toggleNotes() {
+    private func toggleNotes() { toggleNotes(resume: nil) }
+
+    /// Starts or stops meeting notes. With `resume`, continues that finished meeting.
+    private func toggleNotes(resume: UUID?) {
         guard let notetaker else { return }
         if notetaker.isRunning {
             notetaker.stop()
@@ -115,7 +124,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             MeetingPanel.shared.model.warning = nil
             if !CGPreflightScreenCaptureAccess() { CGRequestScreenCaptureAccess() }
-            notetaker.start()
+            notetaker.start(resume: resume)
             Chime.playStart()
             MeetingPanel.shared.showLive()
         }

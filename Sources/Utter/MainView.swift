@@ -545,6 +545,10 @@ private struct MeetingRow: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [rm] in rm.copied = false }
                 }
                 if !live {
+                    IconButton(symbol: "record.circle", help: "Resume taking notes") {
+                        MeetingPanel.shared.onResume?(m.id)
+                    }
+                    .disabled(AppState.shared.live != nil)
                     IconButton(symbol: "trash", help: "Delete") { AppState.shared.delete(m) }
                 }
             }

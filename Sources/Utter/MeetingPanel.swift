@@ -14,6 +14,7 @@ final class MeetingPanelModel: ObservableObject {
 final class MeetingPanel {
     static let shared = MeetingPanel()
     var onStop: (() -> Void)?
+    var onResume: ((UUID) -> Void)?
 
     let model = MeetingPanelModel()
     private var window: NSWindow?
@@ -21,23 +22,40 @@ final class MeetingPanel {
     func showLive() { model.savedID = nil; present() }
     func show(_ m: Meeting) { model.savedID = m.id; present() }
 
+    /// A floating panel that shows on every Space (including over a full-screen meeting)
+    /// without taking focus away from the meeting app.
     private func present() {
         if window == nil {
-            let w = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 440, height: 680),
-                             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-                             backing: .buffered, defer: false)
+            let w = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 440, height: 680),
+                            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView, .nonactivatingPanel],
+                            backing: .buffered, defer: false)
             w.titlebarAppearsTransparent = true
             w.titleVisibility = .hidden
             w.isReleasedWhenClosed = false
+            w.hidesOnDeactivate = false
+            w.isFloatingPanel = true
             w.level = .floating
-            w.collectionBehavior = [.fullScreenAuxiliary]
-            w.contentView = NSHostingView(rootView: TranscriptView(model: model, stop: { [weak self] in self?.onStop?() }))
-            if let vf = NSScreen.main?.visibleFrame {
-                w.setFrameOrigin(NSPoint(x: vf.maxX - 460, y: vf.maxY - 700))
-            }
+            w.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+            w.contentView = NSHostingView(rootView: TranscriptView(model: model,
+                                                                   stop: { [weak self] in self?.onStop?() },
+                                                                   resume: { [weak self] id in
+                                                                       self?.model.savedID = nil
+                                                                       self?.onResume?(id)
+                                                                   }))
             window = w
         }
-        window?.orderFrontRegardless()
+        guard let w = window else { return }
+        if !w.isVisible { place(w) }
+        w.orderFrontRegardless()
+    }
+
+    /// Right side of the screen the mouse is on, sized to fit short screens too.
+    private func place(_ w: NSWindow) {
+        let mouse = NSEvent.mouseLocation
+        let screen = NSScreen.screens.first { NSMouseInRect(mouse, $0.frame, false) } ?? NSScreen.main
+        guard let vf = screen?.visibleFrame else { return }
+        let h = min(680, vf.height - 40)
+        w.setFrame(NSRect(x: vf.maxX - 440 - 16, y: vf.maxY - h - 16, width: 440, height: h), display: true)
     }
 }
 
@@ -45,6 +63,7 @@ private struct TranscriptView: View {
     @ObservedObject var model: MeetingPanelModel
     @ObservedObject var state = AppState.shared
     let stop: () -> Void
+    let resume: (UUID) -> Void
 
     private let cream = Theme.cream
 
@@ -148,6 +167,25 @@ private struct TranscriptView: View {
                         .overlay(Capsule().stroke(Color.black.opacity(0.1)))
                     }
                     .buttonStyle(.plain)
+                }
+                .padding(.horizontal, 22).padding(.vertical, 14)
+            } else if let m = meeting, state.live == nil {
+                // Finished meeting: pick up where it left off.
+                Divider()
+                HStack {
+                    Text("Notes stopped.").font(Theme.sans(12)).foregroundStyle(.secondary)
+                    Spacer()
+                    Button { resume(m.id) } label: {
+                        HStack(spacing: 8) {
+                            Circle().fill(Color.red).frame(width: 10, height: 10)
+                            Text("Resume").font(Theme.sans(14, .semibold))
+                        }
+                        .padding(.horizontal, 16).padding(.vertical, 9)
+                        .background(Capsule().fill(Color.black))
+                        .foregroundColor(.white)
+                    }
+                    .buttonStyle(.plain)
+                    .help("Keep taking notes in this meeting")
                 }
                 .padding(.horizontal, 22).padding(.vertical, 14)
             }

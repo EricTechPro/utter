@@ -84,10 +84,19 @@ final class Notetaker {
         }
     }
 
-    func start() {
+    /// Seconds to add to chunk offsets, so a resumed meeting keeps its timeline.
+    private var offsetBase: Double = 0
+
+    /// Starts a new meeting, or continues a finished one when `resume` is its id.
+    func start(resume: UUID? = nil) {
         guard !isRunning else { return }
         isRunning = true
-        state.startMeeting()
+        if let resume, let base = state.resumeMeeting(resume) {
+            offsetBase = base
+        } else {
+            offsetBase = 0
+            state.startMeeting()
+        }
 
         micChunker = Chunker { [weak self] s, off in self?.transcribe(s, offset: off, speaker: "You") }
         systemChunker = Chunker { [weak self] s, off in self?.transcribe(s, offset: off, speaker: "Others") }
@@ -174,7 +183,7 @@ final class Notetaker {
             guard !text.isEmpty, !Self.isHallucination(text) else { return }
             self.log("\(speaker): \(text.prefix(80))")
             DispatchQueue.main.async {
-                self.state.addSegment(Segment(offset: offset, speaker: speaker, text: text))
+                self.state.addSegment(Segment(offset: offset + self.offsetBase, speaker: speaker, text: text))
             }
         }
     }
