@@ -182,7 +182,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let text) where !text.isEmpty:
-                    Paster.insert(text)
+                    Paster.insert(text) { PasteFallback.shared.show($0) }
                     self.state.add(text: text, seconds: seconds, app: app, samples: samples)
                     self.reset("Ready")
                 case .success:
