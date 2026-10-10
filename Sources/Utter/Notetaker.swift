@@ -57,6 +57,8 @@ final class Notetaker {
     /// Drafts run on their own queue so they never hold up the final text.
     private let draftQueue = DispatchQueue(label: "utter.notes.draft")
     private var draftBusy = Set<String>()
+    /// Length of each track's in-progress chunk at its last draft, so we only redo it when there's new speech.
+    private var draftedLength: [String: Int] = [:]
     private var draftTimer: DispatchSourceTimer?
     private var panel: MeetingPanelModel { MeetingPanel.shared.model }
     private var micChunker: Chunker!
@@ -144,14 +146,20 @@ final class Notetaker {
         }
     }
 
-    /// Every 1.2 s, transcribe what's been said so far in each track and show it as a draft.
+    /// Every 3 s, transcribe what's been said so far in each track and show it as a draft —
+    /// but only if there's at least 1 s of new audio. Running whisper back to back keeps the GPU
+    /// busy nonstop, which some Macs answer with an audible coil whine.
     private func startDrafts() {
         let t = DispatchSource.makeTimerSource(queue: audioQueue)
-        t.schedule(deadline: .now() + 1.2, repeating: 1.2)
+        t.schedule(deadline: .now() + 3, repeating: 3)
         t.setEventHandler { [weak self] in
             guard let self else { return }
             for (speaker, chunker) in [("You", self.micChunker!), ("Others", self.systemChunker!)] {
                 guard !self.draftBusy.contains(speaker), let snap = chunker.snapshot() else { continue }
+                // A new chunk starts shorter than the last draft; otherwise require 1 s of new audio.
+                let last = self.draftedLength[speaker] ?? 0
+                if snap.samples.count > last, snap.samples.count - last < Int(Recorder.sampleRate) { continue }
+                self.draftedLength[speaker] = snap.samples.count
                 self.draftBusy.insert(speaker)
                 self.draftQueue.async {
                     let text = Self.clean((try? self.transcriber.transcribe(samples: snap.samples)) ?? "")
