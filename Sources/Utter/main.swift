@@ -64,5 +64,5 @@ if let i = CommandLine.arguments.firstIndex(of: "--test-dictation"), i + 1 < Com
 
 let delegate = AppDelegate()
 app.delegate = delegate
-app.setActivationPolicy(.regular)
+Startup.applyDockPolicy()
 app.run()

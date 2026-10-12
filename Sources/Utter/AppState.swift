@@ -61,8 +61,6 @@ final class AppState: ObservableObject {
     @Published private(set) var meetings: [Meeting] = []
     /// The meeting being recorded right now, if any.
     @Published private(set) var live: Meeting?
-    /// Another app (Zoom, Meet, …) is using the mic: probably a meeting.
-    @Published var meetingLikely = false
 
     let dataDir: URL
     var audioDir: URL { dataDir.appendingPathComponent("audio", isDirectory: true) }

@@ -30,7 +30,7 @@ Get the latest files from the [Releases page](../../releases/latest):
 ## Build and install from source (macOS 13+)
 
 ```sh
-brew install whisper-cpp
+brew install cmake        # whisper.cpp is built from source and linked into the app
 mkdir -p models
 curl -L -o models/ggml-large-v3-turbo-q5_0.bin \
   https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin

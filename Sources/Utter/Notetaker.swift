@@ -1,5 +1,4 @@
 import Foundation
-import CoreAudio
 
 /// Splits a live 16 kHz stream into speech chunks: cut at a pause after 3 s,
 /// or force a cut at 10 s. Quiet chunks are dropped (whisper invents words in silence).
@@ -207,19 +206,5 @@ final class Notetaker {
     private static func isHallucination(_ t: String) -> Bool {
         let s = t.lowercased().trimmingCharacters(in: .punctuationCharacters.union(.whitespaces))
         return ["thank you", "thanks for watching", "you", "bye", "thank you for watching", "okay"].contains(s)
-    }
-
-    /// True when the default mic is in use by any process (e.g. Zoom or a browser call).
-    static func micInUseSomewhere() -> Bool {
-        var dev = AudioObjectID(0)
-        var size = UInt32(MemoryLayout<AudioObjectID>.size)
-        var addr = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDefaultInputDevice,
-                                              mScope: kAudioObjectPropertyScopeGlobal,
-                                              mElement: kAudioObjectPropertyElementMain)
-        guard AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject), &addr, 0, nil, &size, &dev) == noErr else { return false }
-        var running: UInt32 = 0
-        size = UInt32(MemoryLayout<UInt32>.size)
-        addr.mSelector = kAudioDevicePropertyDeviceIsRunningSomewhere
-        return AudioObjectGetPropertyData(dev, &addr, 0, nil, &size, &running) == noErr && running != 0
     }
 }

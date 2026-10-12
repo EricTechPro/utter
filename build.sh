@@ -9,6 +9,8 @@ WHISPER="$(command -v whisper-cli || echo /opt/homebrew/bin/whisper-cli)"
 IDENTITY="Utter Local Signing"
 [[ -f "$MODEL" ]] || { echo "Model not found: $MODEL"; exit 1; }
 
+# whisper.cpp is linked into the app (and bundled as a fallback whisper-cli); build it once.
+[[ -f build/whisper/lib/libwhisper.a && -x build/whisper-cli ]] || ./scripts/build-whisper.sh
 swift build -c release
 
 # App icon (generated once).

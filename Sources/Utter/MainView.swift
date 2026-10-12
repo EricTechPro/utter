@@ -1,4 +1,5 @@
 import SwiftUI
+import ServiceManagement
 import AppKit
 
 /// Small observable holders instead of @State: the Command Line Tools SDK
@@ -374,6 +375,8 @@ private struct HeroWave: View {
 /// Permissions, shortcuts and where data lives.
 private struct SettingsPage: View {
     @ObservedObject var state = AppState.shared
+    @ObservedObject var login = LoginItemModel.shared
+    @AppStorage(Startup.showInDockKey) private var showInDock = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -382,6 +385,21 @@ private struct SettingsPage: View {
                 row("Microphone", state.micOK, "Privacy_Microphone")
                 row("Accessibility (shortcut and pasting)", state.axOK, "Privacy_Accessibility")
                 row("Screen Recording (meetings hear others)", state.screenOK, "Privacy_ScreenCapture")
+            }
+            section("General") {
+                Toggle("Open at login", isOn: Binding(get: { login.on }, set: { login.set($0) }))
+                .font(Theme.sans(15)).toggleStyle(.switch)
+                if login.needsApproval {
+                    HStack {
+                        Text("Allow Utter in Login Items to finish turning this on.").font(Theme.sans(13))
+                            .foregroundColor(.black.opacity(0.55))
+                        Spacer()
+                        Button("Open Login Items") { SMAppService.openSystemSettingsLoginItems() }
+                    }
+                }
+                Toggle("Show in Dock", isOn: $showInDock)
+                    .font(Theme.sans(15)).toggleStyle(.switch)
+                    .onChange(of: showInDock) { _ in Startup.applyDockPolicy() }
             }
             section("Shortcuts") {
                 line("Start / stop dictation", "⌥1")
@@ -398,6 +416,8 @@ private struct SettingsPage: View {
             Spacer()
         }
         .padding(.horizontal, 40).padding(.top, 40).padding(.bottom, 24)
+        // The menu-bar menu or System Settings may have changed it.
+        .onAppear { login.refresh() }
     }
 
     private func section<C: View>(_ title: String, @ViewBuilder _ content: () -> C) -> some View {

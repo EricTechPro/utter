@@ -3,7 +3,6 @@ import EventKit
 
 /// Watches the Mac's Calendar for upcoming meetings with a video link, and pops up
 /// a card a few minutes before: Join (opens the link) or Start Notetaker.
-/// Also offers notes when another app grabs the mic and there's no calendar event.
 final class MeetingReminder {
     var onStartNotes: (() -> Void)?
 
@@ -12,7 +11,6 @@ final class MeetingReminder {
     private var timer: Timer?
     private var dismissed = Set<String>()
     private var shownKey: String?
-    private var micSince: Date?
 
     /// Show the card this long before a meeting starts, and keep it until this long after.
     private let lead: TimeInterval = 5 * 60
@@ -63,19 +61,6 @@ final class MeetingReminder {
             shownKey = key
             card.show(title: event.title ?? "Meeting", start: event.startDate, joinURL: url)
             return
-        }
-
-        // No calendar meeting: if another app has held the mic for a few seconds, offer notes.
-        if AppState.shared.meetingLikely {
-            micSince = micSince ?? Date()
-            if Date().timeIntervalSince(micSince!) > 8, !dismissed.contains("mic") {
-                shownKey = "mic"
-                card.show(title: "Looks like you're in a call", start: nil, joinURL: nil)
-                return
-            }
-        } else {
-            micSince = nil
-            dismissed.remove("mic")
         }
         if shownKey != nil { card.hide(); shownKey = nil }
     }

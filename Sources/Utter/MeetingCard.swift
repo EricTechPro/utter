@@ -3,7 +3,7 @@ import SwiftUI
 
 final class MeetingCardModel: ObservableObject {
     @Published var title = ""
-    @Published var start: Date?
+    @Published var start = Date()
     @Published var joinURL: URL?
 }
 
@@ -40,7 +40,7 @@ final class MeetingCard {
         panel.contentView = host
     }
 
-    func show(title: String, start: Date?, joinURL: URL?) {
+    func show(title: String, start: Date, joinURL: URL?) {
         if model.title != title { model.title = title }
         if model.start != start { model.start = start }
         if model.joinURL != joinURL { model.joinURL = joinURL }
@@ -110,8 +110,7 @@ private struct MeetingCardView: View {
     }
 
     private var when: String {
-        guard let s = model.start else { return "Microphone in use" }
-        let mins = Int((s.timeIntervalSinceNow / 60).rounded())
+        let mins = Int((model.start.timeIntervalSinceNow / 60).rounded())
         if mins > 0 { return "In \(mins) min" }
         if mins == 0 { return "Starting now" }
         return "Started \(-mins) min ago"

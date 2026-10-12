@@ -2,9 +2,9 @@ import AppKit
 import SwiftUI
 import AVFoundation
 import ApplicationServices
-import ServiceManagement
+import Combine
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let state = AppState.shared
     private var statusItem: NSStatusItem!
     private var window: NSWindow!
@@ -19,16 +19,44 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var hotkeyStarted = false
     private var permissionTimer: Timer?
     private var targetApp: String?
+    /// Opened by macOS at login: start quietly (menu bar and dock capsule, no window).
+    private var quietLaunch = false
+    private var bag = Set<AnyCancellable>()
+    private let dictateItem = NSMenuItem(title: "Start Dictation", action: #selector(menuDictate), keyEquivalent: "1")
+    private let notesItem = NSMenuItem(title: "Start Notetaker", action: #selector(menuNotes), keyEquivalent: "")
+    private let loginItem = NSMenuItem(title: "Open at Login", action: #selector(menuLogin), keyEquivalent: "")
+    private let dockItem = NSMenuItem(title: "Show in Dock", action: #selector(menuDock), keyEquivalent: "")
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        quietLaunch = Startup.launchedAtLogin()
+    }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         Theme.registerFonts()
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         setIcon("mic", "Utter: idle")
+        // Menu-bar menu: dictate, notes, open the window, startup options, quit.
         let menu = NSMenu()
-        menu.addItem(withTitle: "Open Utter", action: #selector(showWindow), keyEquivalent: "")
+        menu.autoenablesItems = false
+        menu.delegate = self
+        dictateItem.keyEquivalentModifierMask = .option   // shows ⌥1, the global shortcut
+        for item in [dictateItem, notesItem, loginItem, dockItem] { item.target = self }
+        menu.addItem(dictateItem)
+        menu.addItem(notesItem)
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "Open Utter", action: #selector(showWindow), keyEquivalent: "").target = self
+        menu.addItem(.separator())
+        menu.addItem(loginItem)
+        menu.addItem(dockItem)
         menu.addItem(.separator())
         menu.addItem(withTitle: "Quit Utter", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         statusItem.menu = menu
+        // Red while dictating or taking notes.
+        for pub in [state.$phase.map { _ in () }.eraseToAnyPublisher(), state.$live.map { _ in () }.eraseToAnyPublisher()] {
+            pub.receive(on: RunLoop.main).sink { [weak self] in
+                DispatchQueue.main.async { self?.refreshTint() }
+            }.store(in: &bag)
+        }
 
         window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1080, height: 760),
                           styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
@@ -40,7 +68,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = NSHostingView(rootView: MainView())
         window.setFrameAutosaveName("UtterMain")
         if window.frame.origin == .zero { window.center() }
-        showWindow()
+        if !quietLaunch { showWindow() }
         dock.onDictate = { [weak self] in self?.toggle() }
         dock.onNotes = { [weak self] in self?.toggleNotes() }
         dock.show()
@@ -55,7 +83,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             self?.toggleNotes()
         }
 
-        registerLoginItem()
+        Startup.configureOnFirstRun()
 
         // `--start-notes` starts meeting notes a moment after launch (for testing the panel).
         if CommandLine.arguments.contains("--start-notes") {
@@ -101,13 +129,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate(ignoringOtherApps: true)
     }
 
-    /// Start Utter when the Mac starts. Only works from /Applications.
-    private func registerLoginItem() {
-        guard Bundle.main.bundlePath.hasPrefix("/Applications/") else { return }
-        if SMAppService.mainApp.status != .enabled {
-            do { try SMAppService.mainApp.register() } catch { NSLog("Utter: login item failed: \(error)") }
-        }
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        let live = notetaker?.isRunning == true
+        dictateItem.title = state.phase == .recording ? "Stop Dictation" : "Start Dictation"
+        dictateItem.isEnabled = state.phase != .working && transcriber != nil
+        notesItem.title = live ? "Stop Notetaker" : "Start Notetaker"
+        notesItem.isEnabled = notetaker != nil && (live || state.phase == .idle)
+        loginItem.state = Startup.openAtLogin ? .on : .off
+        dockItem.state = Startup.showInDock ? .on : .off
     }
+
+    @objc private func menuDictate() { toggle() }
+    @objc private func menuNotes() { toggleNotes() }
+    @objc private func menuLogin() { LoginItemModel.shared.set(!Startup.openAtLogin) }
+    @objc private func menuDock() { Startup.showInDock.toggle() }
 
     func applicationWillTerminate(_ notification: Notification) {
         if notetaker?.isRunning == true { state.endMeeting() }
@@ -118,6 +153,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// Starts or stops meeting notes. With `resume`, continues that finished meeting.
     private func toggleNotes(resume: UUID?) {
         guard let notetaker else { return }
+        // No meeting while dictating (dock button, calendar card, resume or any other caller).
+        if !notetaker.isRunning, state.phase != .idle { return }
         if notetaker.isRunning {
             notetaker.stop()
             Chime.playStop()
@@ -132,9 +169,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func checkPermissions() {
         state.refreshPermissions()
-        // A meeting app has the mic open while we're idle: hint on the dock.
-        let likely = state.phase == .idle && notetaker?.isRunning != true && Notetaker.micInUseSomewhere()
-        if likely != state.meetingLikely { state.meetingLikely = likely }
         guard !hotkeyStarted, transcriber != nil else { return }
         if state.axOK, hotkey.start() {
             hotkeyStarted = true
@@ -231,5 +265,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func setIcon(_ symbol: String, _ label: String) {
         statusItem.button?.image = NSImage(systemSymbolName: symbol, accessibilityDescription: label)
         statusItem.button?.toolTip = label
+        refreshTint()
+    }
+
+    private func refreshTint() {
+        let active = state.phase != .idle || state.live != nil
+        statusItem.button?.contentTintColor = active ? .systemRed : nil
     }
 }

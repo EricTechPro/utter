@@ -6,6 +6,8 @@ final class DockModel: ObservableObject {
     @Published var hovering: String?
     /// Collapsed to a thin handle until the mouse comes near.
     @Published var expanded = false
+    /// Which screen edge it sits on; upright on the left and right, lying flat on top and bottom.
+    @Published var spot = EdgeSpot.left
     private var collapseWork: DispatchWorkItem?
 
     func mouseInside(_ inside: Bool) {
@@ -23,10 +25,10 @@ final class DockModel: ObservableObject {
     }
 }
 
-/// Small floating dock on the left edge of the screen: one dark capsule with
+/// Small floating dock on an edge of the screen (left by default): one dark capsule with
 /// Dictate (mic) and Notetaker (record). While notes are running it also shows a
 /// transcript button and a live timer. It rests as a thin handle and opens on hover.
-/// Drag it anywhere; it never takes focus from the app you're typing in.
+/// Drag it to the middle of any edge; it never takes focus from the app you're typing in.
 final class Dock {
     var onDictate: (() -> Void)?
     var onNotes: (() -> Void)?
@@ -35,8 +37,12 @@ final class Dock {
     private let tip: NSPanel
     private let tipLabel = NSTextField(labelWithString: "")
     private let model = DockModel()
-    private let size = NSSize(width: 64, height: 168)
+    /// Long and short side of the dock panel (the capsule plus room for it to open).
+    static let long: CGFloat = 168, short: CGFloat = 64
+    private let size = NSSize(width: Dock.short, height: Dock.long)
     private var bag = Set<AnyCancellable>()
+    private let targets = DropTargets()
+    private var springTimer: Timer?
 
     init() {
         panel = NSPanel(contentRect: NSRect(origin: .zero, size: size),
@@ -46,6 +52,7 @@ final class Dock {
                       styleMask: [.borderless, .nonactivatingPanel],
                       backing: .buffered, defer: false)
         for p in [panel, tip] {
+            p.isFloatingPanel = true
             p.level = .statusBar
             p.isOpaque = false
             p.backgroundColor = .clear
@@ -76,56 +83,85 @@ final class Dock {
 
         for pub in [model.$expanded.map { _ in () }.eraseToAnyPublisher(),
                     model.$hovering.map { _ in () }.eraseToAnyPublisher(),
-                    AppState.shared.$live.map { _ in () }.eraseToAnyPublisher()] {
+                    AppState.shared.$live.map { _ in () }.eraseToAnyPublisher(),
+                    AppState.shared.$phase.map { _ in () }.eraseToAnyPublisher()] {
             pub.receive(on: RunLoop.main).sink { [weak self] in
                 DispatchQueue.main.async { self?.updateTip() }
             }.store(in: &bag)
         }
+        // Resolution, display arrangement or monitor changes: stay on a screen's edge.
+        NotificationCenter.default.addObserver(forName: NSApplication.didChangeScreenParametersNotification,
+                                               object: nil, queue: .main) { [weak self] _ in self?.resnap() }
     }
 
-    private static let originKey = "dockOrigin"
+    private static let spotKey = "dockSpot"
+    /// The edge the dock sits on (saved), so the pill can step aside on the same edge.
+    static var spot: EdgeSpot { EdgeSpot.saved(spotKey, default: .left) }
     private var dragOffset: NSPoint?
 
-    /// Starts a bit above the middle of the left edge, or wherever it was last dragged.
+    /// Starts on the edge it was last dragged to (the left by default).
     func show() {
-        guard let vf = NSScreen.main?.visibleFrame else { return }
-        var origin = NSPoint(x: vf.minX, y: vf.midY - size.height / 2 + 100)
-        if let saved = UserDefaults.standard.string(forKey: Self.originKey) {
-            let p = NSPointFromString(saved)
-            if NSScreen.screens.contains(where: { $0.visibleFrame.insetBy(dx: -10, dy: -10).contains(p) }) { origin = p }
-        }
-        panel.setFrameOrigin(origin)
+        resnap()
         panel.orderFrontRegardless()
     }
 
-    /// Follows the mouse while dragging; remembers the spot when let go.
+    private func frame(for spot: EdgeSpot, on screen: NSScreen) -> NSRect {
+        EdgeSnap.frame(for: spot, long: Self.long, short: Self.short, inset: 0, on: screen)
+    }
+
+    /// Puts the dock on its spot on the screen it's on (or the main screen if that went away).
+    private func resnap() { place(animated: false) }
+
+    private func place(animated: Bool, on screen: NSScreen? = nil) {
+        guard let screen = screen ?? panel.screen ?? NSScreen.main else { return }
+        let spot = Self.spot
+        let target = frame(for: spot, on: screen)
+        springTimer?.invalidate()
+        springTimer = nil
+        if model.spot != spot { model.spot = spot }
+        if animated {
+            // Change shape around the current centre, then spring into place.
+            let c = NSPoint(x: panel.frame.midX, y: panel.frame.midY)
+            panel.setFrame(NSRect(x: c.x - target.width / 2, y: c.y - target.height / 2,
+                                  width: target.width, height: target.height), display: true)
+            springTimer = EdgeSnap.spring(panel, to: target.origin) { [weak self] in
+                self?.springTimer = nil
+                self?.updateTip()
+            }
+        } else {
+            panel.setFrame(target, display: true)
+        }
+    }
+
+    /// Follows the mouse while dragging, showing the four spots; springs to the nearest when let go.
     private func dragMoved(ended: Bool) {
         let mouse = NSEvent.mouseLocation
         if dragOffset == nil {
+            springTimer?.invalidate()
+            springTimer = nil
             dragOffset = NSPoint(x: mouse.x - panel.frame.minX, y: mouse.y - panel.frame.minY)
             tip.orderOut(nil)
         }
-        guard let off = dragOffset else { return }
+        guard let off = dragOffset, let screen = EdgeSnap.screen(at: mouse) else { return }
         panel.setFrameOrigin(NSPoint(x: mouse.x - off.x, y: mouse.y - off.y))
-        if ended {
-            dragOffset = nil
-            // Snap flush to the left edge when dropped close to it.
-            if let vf = panel.screen?.visibleFrame {
-                var o = panel.frame.origin
-                if o.x - vf.minX < 32 { o.x = vf.minX }
-                o.y = min(max(o.y, vf.minY), vf.maxY - size.height)
-                panel.setFrameOrigin(o)
-            }
-            UserDefaults.standard.set(NSStringFromPoint(panel.frame.origin), forKey: Self.originKey)
-            updateTip()
+        let near = EdgeSnap.nearest(to: NSPoint(x: panel.frame.midX, y: panel.frame.midY), on: screen)
+        if !ended {
+            targets.show(on: screen, rects: EdgeSpot.allCases.map { (frame(for: $0, on: screen), $0 == near) },
+                         under: panel)
+            return
         }
+        dragOffset = nil
+        targets.hide()
+        near.save(Self.spotKey)
+        place(animated: true, on: screen)
+        NotificationCenter.default.post(name: .utterDockMoved, object: nil)
     }
 
     private func updateTip() {
         guard model.expanded, let hovering = model.hovering else { tip.orderOut(nil); return }
         let live = AppState.shared.live != nil
         let text: String
-        let y: CGFloat
+        let y: CGFloat   // the button's centre, along the dock from its top (or left) end
         switch hovering {
         case "mic":
             text = "Dictate   ⌥1"
@@ -134,16 +170,27 @@ final class Dock {
             text = "Show transcript"
             y = DockView.transcriptCenter
         default:
-            text = live ? "Stop taking notes" : (AppState.shared.meetingLikely ? "Meeting? Start Notetaker" : "Start Notetaker")
+            text = live ? "Stop taking notes"
+                : AppState.shared.phase != .idle ? "Finish dictation first"
+                : "Start Notetaker"
             y = DockView.notesCenter
         }
         tipLabel.stringValue = text
         tipLabel.sizeToFit()
         let h: CGFloat = 32
-        tip.setContentSize(NSSize(width: tipLabel.frame.width + 28, height: h))
+        let w = tipLabel.frame.width + 28
+        tip.setContentSize(NSSize(width: w, height: h))
         tipLabel.setFrameOrigin(NSPoint(x: 14, y: (h - tipLabel.frame.height) / 2))
-        // y is measured from the top of the dock; AppKit counts from the bottom.
-        tip.setFrameOrigin(NSPoint(x: panel.frame.minX + 62, y: panel.frame.maxY - y - h / 2))
+        // Beside the button, on the side away from the screen edge. AppKit counts y from the bottom.
+        let f = panel.frame
+        let origin: NSPoint
+        switch model.spot {
+        case .left:   origin = NSPoint(x: f.minX + 62, y: f.maxY - y - h / 2)
+        case .right:  origin = NSPoint(x: f.maxX - 62 - w, y: f.maxY - y - h / 2)
+        case .top:    origin = NSPoint(x: f.minX + y - w / 2, y: f.maxY - 62 - h)
+        case .bottom: origin = NSPoint(x: f.minX + y - w / 2, y: f.minY + 62)
+        }
+        tip.setFrameOrigin(origin)
         tip.orderFrontRegardless()
     }
 }
@@ -168,22 +215,37 @@ private struct DockView: View {
 
     private var dictating: Bool { state.phase != .idle }
     private var live: Bool { state.live != nil }
+    private var vertical: Bool { model.spot.vertical }
+    /// The screen edge the dock hugs, and where its buttons start (top, or left when lying flat).
+    private var edge: Edge {
+        switch model.spot { case .left: .leading; case .right: .trailing; case .top: .top; case .bottom: .bottom }
+    }
+    private var start: Edge { vertical ? .top : .leading }
+    private var corner: Alignment {
+        switch model.spot { case .left: .topLeading; case .right: .topTrailing; case .top: .topLeading; case .bottom: .bottomLeading }
+    }
+    private var edgeAlignment: Alignment {
+        switch model.spot { case .left: .leading; case .right: .trailing; case .top: .top; case .bottom: .bottom }
+    }
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack(alignment: corner) {
             if model.expanded {
                 capsule
-                    .padding(.leading, 8).padding(.top, 6)
-                    .transition(.move(edge: .leading).combined(with: .opacity))
+                    .padding(Edge.Set(edge), 8).padding(Edge.Set(start), 6)
+                    .transition(.move(edge: edge).combined(with: .opacity))
             } else {
                 handle
-                    .padding(.leading, 3).padding(.top, 50)
+                    .padding(Edge.Set(edge), 3).padding(Edge.Set(start), 50)
                     .transition(.opacity)
             }
         }
-        .frame(width: 64, height: 168, alignment: .topLeading)
+        .frame(width: vertical ? Dock.short : Dock.long, height: vertical ? Dock.long : Dock.short, alignment: corner)
         // Near-invisible strip so the edge still catches the mouse when collapsed.
-        .background(Color.black.opacity(0.001).frame(width: model.expanded ? 64 : 18), alignment: .leading)
+        .background(Color.black.opacity(0.001)
+                        .frame(width: vertical ? (model.expanded ? Dock.short : 18) : nil,
+                               height: vertical ? nil : (model.expanded ? Dock.short : 18)),
+                    alignment: edgeAlignment)
         .contentShape(Rectangle())
         .onHover { model.mouseInside($0) }
         // Drag from anywhere on the dock (buttons still click when you don't move).
@@ -202,11 +264,12 @@ private struct DockView: View {
             .fill(dictating || live ? Color.red : Color(white: 0.18).opacity(0.75))
             .overlay(Capsule().stroke(Color.white.opacity(0.55), lineWidth: 1))
             .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
-            .frame(width: 6, height: live ? 56 : 40)
+            .frame(width: vertical ? 6 : (live ? 56 : 40), height: vertical ? (live ? 56 : 40) : 6)
     }
 
     private var capsule: some View {
-        VStack(spacing: 4) {
+        let stack = vertical ? AnyLayout(VStackLayout(spacing: 4)) : AnyLayout(HStackLayout(spacing: 4))
+        return stack {
             DockButton(active: dictating, activeColor: .red, help: "mic") {
                 Image(systemName: dictating ? "mic.fill" : "mic")
                     .font(.system(size: 17, weight: .semibold))
@@ -217,16 +280,12 @@ private struct DockView: View {
                 if live {
                     RoundedRectangle(cornerRadius: 3).fill(Color.white).frame(width: 13, height: 13)
                 } else {
-                    ZStack(alignment: .topTrailing) {
-                        Image(systemName: "record.circle").font(.system(size: 19, weight: .semibold))
-                        if state.meetingLikely {
-                            Circle().fill(Color.green).frame(width: 9, height: 9)
-                                .overlay(Circle().stroke(Color.black, lineWidth: 1.5))
-                                .offset(x: 4, y: -3)
-                        }
-                    }
+                    Image(systemName: "record.circle").font(.system(size: 19, weight: .semibold))
                 }
             } action: { notes() }
+            // No meeting while dictating: greyed out until the dictation ends.
+            .disabled(dictating && !live)
+            .opacity(dictating && !live ? 0.35 : 1)
             .onHover { hover("notes", $0) }
 
             if live, let m = state.live {
@@ -240,7 +299,7 @@ private struct DockView: View {
                         .font(Theme.sans(11, .semibold)).monospacedDigit()
                         .foregroundColor(.white.opacity(0.8))
                 }
-                .padding(.bottom, 4)
+                .padding(vertical ? .bottom : .trailing, 4)
             }
         }
         .padding(4)

@@ -12,11 +12,15 @@ final class StreamingDictation {
     private var failed = false
     private var next = 0
     private var session = 0
+    /// The language whisper detected on this dictation's first chunk; later chunks reuse it
+    /// instead of detecting again. Only touched on the whisper queue.
+    private var language = "auto"
+    private var languageSession = 0
 
     init(transcriber: Transcriber) { self.transcriber = transcriber }
 
     func start() {
-        audioQueue.async {
+        audioQueue.async { [self] in
             self.session += 1
             let session = self.session
             self.parts = [:]
@@ -61,11 +65,16 @@ final class StreamingDictation {
         let index = next
         next += 1
         whisperQueue.async {
-            let result = Result { try self.transcriber.transcribe(samples: samples) }
+            if self.languageSession != session {
+                self.languageSession = session
+                self.language = "auto"
+            }
+            let result = Result { try self.transcriber.transcribe(samples: samples, language: self.language) }
+            if case .success(let r) = result, self.language == "auto" { self.language = r.language }
             self.audioQueue.async {
                 guard session == self.session else { return }
                 switch result {
-                case .success(let t): self.parts[index] = t
+                case .success(let r): self.parts[index] = r.text
                 case .failure: self.failed = true
                 }
             }
