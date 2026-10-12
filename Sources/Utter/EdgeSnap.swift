@@ -82,6 +82,7 @@ final class DropTargets {
         panel.hasShadow = false
         panel.ignoresMouseEvents = true
         panel.hidesOnDeactivate = false
+        panel.canHide = false   // stays up even if Utter is hidden
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary, .ignoresCycle]
         panel.contentView = view
     }

@@ -7,7 +7,10 @@ import Combine
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let state = AppState.shared
     private var statusItem: NSStatusItem!
-    private var window: NSWindow!
+    /// Everything else lives in this panel under the menu-bar icon (left-click).
+    private let popover = NSPopover()
+    /// Short menu on right-click.
+    private let statusMenu = NSMenu()
     private let pill = RecordingPill()
     private let dock = Dock()
     private let reminder = MeetingReminder()
@@ -19,7 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var hotkeyStarted = false
     private var permissionTimer: Timer?
     private var targetApp: String?
-    /// Opened by macOS at login: start quietly (menu bar and dock capsule, no window).
+    /// Opened by macOS at login: start quietly (menu bar and dock capsule, no setup window).
     private var quietLaunch = false
     private var bag = Set<AnyCancellable>()
     private let dictateItem = NSMenuItem(title: "Start Dictation", action: #selector(menuDictate), keyEquivalent: "1")
@@ -35,8 +38,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Theme.registerFonts()
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         setIcon("mic", "Utter: idle")
-        // Menu-bar menu: dictate, notes, open the window, startup options, quit.
-        let menu = NSMenu()
+        // Left-click opens the panel; right-click shows a short menu.
+        statusItem.button?.target = self
+        statusItem.button?.action = #selector(statusClicked)
+        statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        let menu = statusMenu
         menu.autoenablesItems = false
         menu.delegate = self
         dictateItem.keyEquivalentModifierMask = .option   // shows ⌥1, the global shortcut
@@ -44,13 +50,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(dictateItem)
         menu.addItem(notesItem)
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Open Utter", action: #selector(showWindow), keyEquivalent: "").target = self
-        menu.addItem(.separator())
         menu.addItem(loginItem)
         menu.addItem(dockItem)
         menu.addItem(.separator())
         menu.addItem(withTitle: "Quit Utter", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
-        statusItem.menu = menu
         // Red while dictating or taking notes.
         for pub in [state.$phase.map { _ in () }.eraseToAnyPublisher(), state.$live.map { _ in () }.eraseToAnyPublisher()] {
             pub.receive(on: RunLoop.main).sink { [weak self] in
@@ -58,17 +61,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }.store(in: &bag)
         }
 
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1080, height: 760),
-                          styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-                          backing: .buffered, defer: false)
-        window.title = "Utter"
-        window.titlebarAppearsTransparent = true
-        window.titleVisibility = .hidden
-        window.isReleasedWhenClosed = false
-        window.contentView = NSHostingView(rootView: MainView())
-        window.setFrameAutosaveName("UtterMain")
-        if window.frame.origin == .zero { window.center() }
-        if !quietLaunch { showWindow() }
+        popover.behavior = .transient   // closes on a click outside
+        popover.animates = false
+        popover.contentSize = MenuBarView.size
+        popover.contentViewController = NSHostingController(rootView: MenuBarView(
+            dictate: { [weak self] in self?.toggle() },
+            toggleNotes: { [weak self] in self?.toggleNotes() }))
         dock.onDictate = { [weak self] in self?.toggle() }
         dock.onNotes = { [weak self] in self?.toggleNotes() }
         dock.show()
@@ -79,9 +77,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         reminder.start()
         MeetingPanel.shared.onStop = { [weak self] in self?.toggleNotes() }
         MeetingPanel.shared.onResume = { [weak self] id in self?.toggleNotes(resume: id) }
-        NotificationCenter.default.addObserver(forName: .utterToggleNotes, object: nil, queue: .main) { [weak self] _ in
-            self?.toggleNotes()
-        }
 
         Startup.configureOnFirstRun()
 
@@ -104,6 +99,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // Setup walkthrough for anything not allowed yet; the timer below keeps checking.
         state.refreshPermissions()
         Onboarding.shared.showIfNeeded()
+        // Opened by hand (not at login): drop the panel down so you see Utter is running.
+        if !quietLaunch, !Onboarding.requiredMissing {
+            DispatchQueue.main.async { [weak self] in self?.showPanel() }
+        }
 
         hotkey.onToggle = { [weak self] in self?.toggle() }
         hotkey.onCancel = { [weak self] in self?.cancel() }
@@ -119,14 +118,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         checkPermissions()
     }
 
+    /// Clicking the Dock icon (with "Show in Dock" on) opens the panel.
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        showWindow()
+        showPanel()
         return true
     }
 
-    @objc private func showWindow() {
-        window.makeKeyAndOrderFront(nil)
+    @objc private func statusClicked() {
+        if NSApp.currentEvent?.type == .rightMouseUp {
+            popover.performClose(nil)
+            statusItem.menu = statusMenu          // shown for this click only
+            statusItem.button?.performClick(nil)
+            statusItem.menu = nil
+        } else if popover.isShown {
+            popover.performClose(nil)
+        } else {
+            showPanel()
+        }
+    }
+
+    /// The app you were in before opening the panel; dictation types into it.
+    private var previousApp: NSRunningApplication?
+
+    private func showPanel() {
+        guard let button = statusItem.button else { return }
+        if let front = NSWorkspace.shared.frontmostApplication, front != .current { previousApp = front }
         NSApp.activate(ignoringOtherApps: true)
+        popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        popover.contentViewController?.view.window?.makeKey()
+    }
+
+    /// Closes the panel and gives focus back to the app you were in, then runs `then`
+    /// once that app is in front again, so the words are pasted there and not into Utter.
+    private func returnFocus(then: @escaping () -> Void) {
+        popover.performClose(nil)
+        previousApp?.activate()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: then)
     }
 
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -146,6 +173,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         if notetaker?.isRunning == true { state.endMeeting() }
+        HistoryUndo.shared.finish()   // a delete still waiting for Undo: remove its audio too
     }
 
     private func toggleNotes() { toggleNotes(resume: nil) }
@@ -178,7 +206,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
     }
 
-    private func toggle() {
+    private func toggle(refocused: Bool = false) {
+        // From ⌥1 or the panel while the panel is open (or just closed, with Utter still in
+        // front and no window of its own to type into): type into the previous app instead.
+        let panelFocus = popover.isShown || (NSApp.isActive && NSApp.keyWindow == nil)
+        if panelFocus, !refocused, previousApp != nil, state.phase != .working {
+            return returnFocus { [weak self] in self?.toggle(refocused: true) }
+        }
         switch state.phase {
         case .idle: start()
         case .recording: finish()
@@ -188,7 +222,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     private func start() {
         do {
-            targetApp = NSWorkspace.shared.frontmostApplication?.localizedName
+            let front = NSWorkspace.shared.frontmostApplication
+            targetApp = (front == .current ? previousApp : front)?.localizedName
             streaming?.start()
             try recorder.start()
             state.phase = .recording

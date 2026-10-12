@@ -169,8 +169,20 @@ final class AppState: ObservableObject {
     }
 
     func delete(_ d: Dictation) {
-        entries.removeAll { $0.id == d.id }
+        remove(d)
         try? FileManager.default.removeItem(at: audioURL(d))
+    }
+
+    /// Takes it out of History but keeps its audio, so Undo can put it back.
+    func remove(_ d: Dictation) {
+        entries.removeAll { $0.id == d.id }
+        save(entries, to: "history.json")
+    }
+
+    /// Puts a removed dictation back in its place (newest first).
+    func restore(_ d: Dictation) {
+        guard !entries.contains(where: { $0.id == d.id }) else { return }
+        entries.insert(d, at: entries.firstIndex { $0.date < d.date } ?? entries.endIndex)
         save(entries, to: "history.json")
     }
 

@@ -4,11 +4,16 @@ import SwiftUI
 // Dock app with a history window. Option+1 starts and stops dictation.
 let app = NSApplication.shared
 
-// `Utter --snapshot out.png` renders the main window to a PNG and exits (for checking the UI).
+// `Utter --snapshot out.png [--tab history|notes|settings] [--dark]` renders the menu-bar panel to a PNG and exits (for checking the UI).
 if let i = CommandLine.arguments.firstIndex(of: "--snapshot"), i + 1 < CommandLine.arguments.count {
     Theme.registerFonts()
-    let view = NSHostingView(rootView: MainView())
-    view.frame = NSRect(x: 0, y: 0, width: 1180, height: 800)
+    let args = CommandLine.arguments
+    let tab = args.firstIndex(of: "--tab").flatMap { $0 + 1 < args.count ? args[$0 + 1] : nil } ?? "history"
+    let view = NSHostingView(rootView: MenuBarView(tab: tab, dictate: {}, toggleNotes: {}))
+    view.frame = NSRect(origin: .zero, size: MenuBarView.size)
+    view.appearance = NSAppearance(named: CommandLine.arguments.contains("--dark") ? .darkAqua : .aqua)
+    view.wantsLayer = true
+    view.appearance?.performAsCurrentDrawingAppearance { view.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor }
     let win = NSWindow(contentRect: view.frame, styleMask: [.borderless], backing: .buffered, defer: false)
     win.contentView = view
     view.layoutSubtreeIfNeeded()

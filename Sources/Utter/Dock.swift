@@ -57,6 +57,7 @@ final class Dock {
             p.isOpaque = false
             p.backgroundColor = .clear
             p.hidesOnDeactivate = false
+            p.canHide = false   // stays up even if Utter is hidden
             p.becomesKeyOnlyIfNeeded = true
             p.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
         }
