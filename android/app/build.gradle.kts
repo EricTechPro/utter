@@ -11,9 +11,10 @@ android {
         applicationId = "local.utter"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "0.3"
+        versionCode = 4
+        versionName = "0.4"
         ndk { abiFilters += "arm64-v8a" }
+        externalNativeBuild { cmake { arguments += "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON" } }
     }
 
     ndkVersion = "27.2.12479018"
@@ -37,4 +38,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
+    buildFeatures { buildConfig = true }
+
+    // Store .so files uncompressed and 16 KB page-aligned in the APK (Android 15+ 16 KB devices).
+    packaging { jniLibs { useLegacyPackaging = false } }
 }

@@ -1,4 +1,5 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#FFFFFF" android:pathData="M34,48h5v12h-5zM42,40h5v28h-5zM50,32h5v44h-5zM58,42h5v24h-5zM66,46h5v16h-5z"/>
+    <!-- Same waveform as the Mac app icon (scripts/make-icon.swift), in cream. -->
+    <path android:fillColor="#FAF5E8" android:pathData="M29.70,44.10h0a2.48,2.48 0 0,1 2.48,2.48v14.85a2.48,2.48 0 0,1 -4.95,0v-14.85a2.48,2.48 0 0,1 2.48,-2.48zM37.80,35.10h0a2.48,2.48 0 0,1 2.48,2.48v32.85a2.48,2.48 0 0,1 -4.95,0v-32.85a2.48,2.48 0 0,1 2.48,-2.48zM45.90,26.10h0a2.48,2.48 0 0,1 2.48,2.48v50.85a2.48,2.48 0 0,1 -4.95,0v-50.85a2.48,2.48 0 0,1 2.48,-2.48zM54.00,37.80h0a2.48,2.48 0 0,1 2.48,2.48v27.45a2.48,2.48 0 0,1 -4.95,0v-27.45a2.48,2.48 0 0,1 2.48,-2.48zM62.10,30.60h0a2.48,2.48 0 0,1 2.48,2.48v41.85a2.48,2.48 0 0,1 -4.95,0v-41.85a2.48,2.48 0 0,1 2.48,-2.48zM70.20,40.50h0a2.48,2.48 0 0,1 2.48,2.48v22.05a2.48,2.48 0 0,1 -4.95,0v-22.05a2.48,2.48 0 0,1 2.48,-2.48zM78.30,45.90h0a2.48,2.48 0 0,1 2.48,2.48v11.25a2.48,2.48 0 0,1 -4.95,0v-11.25a2.48,2.48 0 0,1 2.48,-2.48z"/>
 </vector>

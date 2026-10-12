@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark, like the Mac app: warm near-black, cream accents (caret, selection, ripples). -->
+    <style name="Utter" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:colorAccent">@color/cream</item>
+        <item name="android:colorPrimary">@color/bg</item>
+        <item name="android:colorPrimaryDark">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:textColorHighlight">#55FAF5E8</item>
+        <item name="android:colorControlNormal">#A6FAF5E8</item>
+    </style>
+    <color name="bg">#0E0D0C</color>
+    <color name="cream">#FAF5E8</color>
+</resources>

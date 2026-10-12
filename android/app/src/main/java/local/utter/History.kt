@@ -26,6 +26,9 @@ object History {
 
     fun delete(ctx: Context, time: Long) = save(ctx, all(ctx).filter { it.time != time })
 
+    /** Puts a deleted entry back in its place (Undo). */
+    fun restore(ctx: Context, e: Entry) = save(ctx, (all(ctx).filter { it.time != e.time } + e).sortedByDescending { it.time })
+
     private fun save(ctx: Context, list: List<Entry>) {
         val arr = JSONArray()
         list.forEach { arr.put(JSONObject().put("time", it.time).put("text", it.text).put("app", it.app)) }
@@ -42,5 +45,5 @@ object History {
         return all(ctx).filter { it.time >= start }.sumOf { words(it.text) }
     }
 
-    fun totalWords(ctx: Context): Int = all(ctx).sumOf { e -> e.text.split(Regex("\\s+")).count { it.isNotBlank() } }
+    fun totalWords(ctx: Context): Int = all(ctx).sumOf { words(it.text) }
 }

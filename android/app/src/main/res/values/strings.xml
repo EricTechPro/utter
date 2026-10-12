@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="a11y_description">Shows a small blue mic button when you tap a text box. Tap it, talk, and Utter types your words into the box. Utter only reads which text box is selected and its text, so it can put your words in the right place.</string>
+    <string name="a11y_description">Shows a small dark mic button with a red ring while you type. Tap it, talk, and Utter types your words into the box. Utter only reads which text box is selected and its text, so it can put your words in the right place.</string>
 </resources>
